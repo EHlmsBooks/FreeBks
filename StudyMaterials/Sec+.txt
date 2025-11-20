@@ -1,0 +1,1602 @@
+﻿Security Controls
+Security risks are out there, Assets varied- in data, computer systems, etc. We want to prevent security events, minimize the impact and limit the data 
+Technical Controls - Controls implemented using technical system, OS controls, firewalls/antivirus, logical security controls
+
+
+Managerial Controls - Administrative controls associated with security design and implementation. Security Policies, SOP, reducing risk of security incidents, written policies, (risk assessments)
+
+
+Operational Controls - Controls implemented by people instead of systems. Security Guards, awareness programs, day to day procedures, equipment works as specified, (system backups, configuration management, patch management).
+
+
+Physical Controls - Physical controls in place to limit physical access to building room or device, guard shack, fences, locks, badge reader 
+
+
+Control Types
+
+
+Physical ~
+
+Preventative - Block access to a resource(Firewall rule, guard shack, onboarding policy, door lock)
+Deterrent -  Discourage intrusion attempt, make attacker think twice (application splash screen, threat of demotion, front reception desk, posted warning signs, lighting, fencing/bollards)
+
+
+Detective - Identify and log intrusion attempts (collect and review the system logs, review login reports, patrol the perimeter/ property regularly, motion detector)
+
+
+Corrective - Applying a control after the event has been detected, can reverse impact of event, continue operating with minimal downtime (restoring from backups can mitigate ransomware infection, create policies for reporting security issues, contact law enforcement, fire extinguisher)
+
+Compensating - control using other means as existing controls aren’t sufficient (Firewall blocks a specific application instead of patching app, implemented a separation of duties, require simultaneous security guards, backup power generator, MFA, application sandboxing, network segmentation)
+
+
+Directive -  Direct a subject toward a security compliance (somewhat weak) ( store sensitive information in protective folder, create compliance policies and procedures, train users on security policy, post a sign for authorized personnel only, IRP, AUP)
+
+
+
+
+CIA Triad
+Confidentiality - Making sure to prevent disclosure of information to unauthorized individuals or systems, Certain information should only be known by certain people. Encryption, access controls
+
+
+Integrity - Making sure the data is the same from when it is sent as to when it was received, hashing(hash matching), making sure data is stored and transferred as intended. Digital signature mathematical scheme to verify integrity of data (takes hash and encrypts it with asymmetrical encryption algorithm), Certificates, Non-repudiation (proof of integrity, information actually came from sending party)
+
+
+Availability - Information is accessible to authorized users, redundancy(build services that will always be available) , fault tolerance (system will continue to run, even when failure occurs), patching (stability). 
+Non- repudiation (digital certificates)
+Proof of integrity- verify data does not change, in cryptography we use a hash (represent data as a short string of text) like a fingerprint, if data changes then hash changes, however can associate data with individual.
+
+
+Proof of origin - prove the message was not changed, prove source of the message (authentication), make sure the signature is not fake (Non- repudiation). Sign with private key, verify with public key
+
+
+Alice computer plaintext to bob -> hash in hashing algorithm -> hash of plaintext -> encryption of hashed plaintext with private key -> digital signature attached to message sent to bob laptop -> bob uses alices public key to decrypt digital signature, have original hash -> bob can now perform same hashing function of plaintext to receive hashed plaintext and compare if it matches the same as information hash that was received, this verification process is important to verify the source and integrity of information
+
+
+Authentication
+Identification - claim to be a user on system (username)
+Authentication - Prove you are who you say you are, password and other authentication factors
+Authorization - based on Identification and authentication, what access do you have 
+Accounting - Resources used:  login time, data sent and received, logout time
+^^^ AAA FRAMEWORK ^^^^
+
+
+(TACACS+ and RADIUS)
+
+
+Client on internet -> VPN Concentrator  -> AAA server received request to see if username, pass, other info matches user in data, if match true then sends approval back to VPN Concentrator/ firewall -> Access into internal file server
+
+
+Authenticating systems - have to manage many devices, system cant type a password so how to truly authenticate a device? We use a certificate. 
+Other business processes rely on the certificate
+* Access to the VPN from authorized devices 
+* Management software can validate the end device
+An organization has a trusted Certificate Authority (CA)
+The organization creates a certificate for a device
+The certificate can now be included on a device as an authentication factor
+Authorization Models - To what do they now have access? Time to apply authorization model
+Users and Services -> data and applications (Put authorization model in middle , defined by roles, organizations, attributes, permissions)
+User -> Resource (difficult to understand why an authorization might exist, doesnt scale well at all)
+Add an abstraction (reduce complexity, create a clear relationships between the user and resource)
+Administration is streamlined  - Easy to understand the authorizations, support and number of users and resources)
+
+
+
+
+
+
+
+
+Gap Analysis
+Study of where you are compared with where you want to be (the gap between the two)
+may require extensive research
+Can take weeks or months, participants
+Choosing the framework - Work towards a known baseline(internal set of goals, org formal standards), Determine the end goal (NIST Special Publication, etc)
+Evaluate people and processes - Get a baseline of employees (Formal experience, current training, knowledge of security policies), Examine the current processes (research existing IT systems)
+Compare and Contrast - The comparison(evaluate existing systems), Identify weaknesses(Along with most effective processes), a Detailed analysis
+The analysis and report - The final comparison (detailed baseline objectives, a clear view of the current state), Need a path to get from the current security to the goal (this will almost certainly include time, money and change control), Time to create the gap analysis report(formal description of current state, recommendations for meeting the baseline)
+
+
+LDAP -  example of directory access protocol
+
+
+Zero Trust - 
+Inside of networks are relatively open(few security controls in place, individuals and softwares may move as they like), Zero trust means you must authenticate and prove each time you want to gain access to a resource(devices, processes, users), nothing is trusted, everything subject to security checks
+MFA, encryptions, addition sys perms, firewalls, security policies & controls added 
+Split the network intro functional control planes( Data plane - performing actual security processes of frames, packets, network, processing forwarding, trunking, encrypting)
+Control Plane - Manages actions of the data plane, defines rules and policies, determining how packets should be forwarded, routing/session/NAT tables.
+Could be virtually separated, cloud based sec controls
+Controlling Trust -
+Adaptive identity - consider the source of the requested resources, multiple risk indicators(relationship to org, physical location, type of connection, ip address), make the authentication stronger if needed
+Threat scope reduction - decrease number of possible entry points
+Policy driven access control - Combine the adaptive identity with a predefined set of rules
+Security zones - broadly where someone is connecting from,
+ broad categorizations provide a security related foundation
+Where are you coming from and where are you going (trusted, untrusted, internal/external network, VPN 1, VPN 5, VPN 11, marketing, IT, accounting, HR.
+Using zones may be enough by itself to deny access (Untrusted to Trusted zone traffic)
+Some zones are implicitly trusted (Trusted to Internal zone traffic)
+Policy Enforcement Point (PEP) - Subjects and systems, end users, applications, non human entities, the gatekeeper to traffic, Allow, monitor, and terminate connections.
+Policy Decision Point (Policy Engine and Policy Administrator (engine on top))  - (info about traffic provided by PEP to Policy engine) examines requests and compares to predefined security policies, then makes decisions. Policy Administrator takes decision from engine and provides to Policy Enforcement Point)
+
+
+
+
+Physical Security - Barricades / bollards prevent access, channel people through specific access point, identify safety concerns, prevent injuries , can be used to an extreme
+Access control vestibules - room must pass to get access to rest of building, all doors normally unlocked after opening one, all doors normally locked, unlocking one prevents other from being unlocked, one door open the others cannot be unlocked, one at a time(managed control rooms)
+Fences - usually pretty obvious, transparent or opaque, robust(difficult to cut), prevent climbing (razor wire, high)
+Video Surveillance - CCTV (closed circuit tele), features are important (motions recognition with alarm, object detection), many different cameras networked together
+Security Guards - physical protection at reception area, validates identifications, two person integrity minimizes exposure to attack, access badge 
+Lighting - more light more security, attackers avoid light
+Sensors - infrared detection of infrared radiation in light and dark, pressure sensor notice change in force on floor or window, microwave detect movement across large areas, ultrasonic sends ultrasonic signals receives reflected sound waves, detect motion/collision
+
+
+Deception and Disruption - Honeypots - attract the bad guys and trap them there
+* attacker is probably a machine
+* honey pots - create a virtual world to explore, many different options, constant battle to discern real from the fake
+* Honeynets - a real network includes more than a single device (servers, workstations, routers, switches, firewalls), larger deception network with one or more honeypots
+* Honefiles - attract the attackers with more honey (create files with fake info, something shiny, bait for honeynet (passwords.txt), add many honeyfiles to file shares), an alert is sent if the file is accessed
+* Honeytokens - track the malicious actors, add some traceable data to the honeynet, if data is stolen, you’ll know where it came from, API credentials - does not actually prove access, notifications are sent when used. Fake email addresses (add it to a contact list, monitor internet to see who posts it), other ex database records, browser cookies, web page pixels
+
+
+Change Management - How to make a change (upgrade software, patch application, change firewall configuration, modify switch ports), one of the most common risks in the enterprise (occurs frequently)
+Change approval process - A formal process for managing change 
+
+
+The process - Complete request form -> Determine purpose of Change - > Identify the scope of the change -> Schedule date and time of the change -> Determine affected systems and the impact -> Analyze the risk associated with the change -> Get approval from change control board -> Get end user acceptance after the change is complete 
+
+
+Ownership - An individual or entity needs to make a change (they own the process, don't usually perform the actual change
+The owner manages the process (process updates are provided to the owner, ensures the process is followed and acceptable)
+Address label printers needs to be upgraded (shipping and receiving department owns the process, IT handles the actual change)
+Stakeholders - Who is impacted by this change (theyll want to have input on the change management process), may not be as obvious as we think
+Upgrading software used for shipping labels means -> Shipping / receiving, Accounting reports, Product delivery timeframes, Revenue recognition (CEO visibility)
+Impact analysis - determine a risk value, can be minor or far reaching (fix doesnt actually fix anything, or breaks something else, data corruptions, OS failures), what is the risk with not making the change (security vulnerability, application unavailability)
+Sandbox Testing environment - no connections to real world or production system, technological safe space, use before making change to production, confirm the backout plan(move everything back to the original, the sandbox cant consider every possibility)
+
+
+Backout plan - the change will work perfectly and nothing will ever go bad( lol), you should always have a way to revert your changes (prepare for worst hope for best), this isnt as easy as it sounds, ALWAYS HAVE BACKUPS (good backups)
+Maintenance Window - When is the change happening? (might be most difficult part), During the workday may not be the best option, overnights are often a better choice (challenging for 24-hour production schedules), time of the year may be a consideration (retail during holiday season)
+S.O.P - Change management is critical, the process must be well documented, changes to the process are reflected in standards
+
+
+
+
+Technical Change Management  -  Put the change management process into action (execute the plan), no such thing as a simple upgrade, often concerned with “what” needs to change.
+Allow list / deny list - any application can be dangerous (vulnerabilities, trojans, malware), security policy can control app execution, allow list means nothing runs unless approved, deny list means nothing on bad list can be executed (anti virus, anti malware)
+Restricted activities - The scope of a change is important, A change approval isn't permission to make any change, the scope may need to be expanded during the change window
+Downtime - services will eventually be unavailable (process can be disruptive usually during non production hours, if possible prevent any downtime, switch to secondary sys  -> upgrade primary -> switch back, should be as automated as possible)
+Send emails and calendar updates
+
+
+Restarts - its common to require a restart (implement the new configuration, reboot the OS, power cycle the switch, bounce the service, can the system recover from a power outage?)
+Services - Stop and restart the service or daemon, may take seconds or minutes
+Applications - close the application completely, launch new application process
+Legacy applications - some applications were here before we arrived, often no longer supported by developer, fear of unknown (document the system, it may not be as bad), may be quirky
+
+
+Dependencies - To complete A, you must complete B (a service will not start without other active services, an application requires a specific library version), modifying one may require modification of another, dependencies may occur across systems(update firewall code and then firewall management software)
+
+
+Documentation - It can be challenging to keep up with changes(documentation can become outdated very quickly, require with the change management process), Updating diagrams, Updating policies/procedures
+
+
+Version Control - Track changes to a file or configuration data over time (easily revert to a previous setting), many opportunities to manage version (router configs, windows OS patches, Application registry entries), not always straightforward, some devices and operating systems provide version controls features, may require additions management software
+
+
+Public Key Infrastructure - Policies and procedures (hardware or software)) that is responsible for creating, distributing, managing, storing, and revoking anything to do with digital certificates, lots of planning
+Also refers to the binding of public keys to people or devices, the certificate authority
+
+
+Symmetric encryption - a single, shared key(encrypt and decrypt with same key), a secret key algorithm(shared secret), does not scale well(challenge to distribute), very fast to use(less overhead or combined with asymmetric)
+Asymmetric encryption -  (Public key cryptography) Two or more mathematically related keys, Private key (kept private), public key which anyone can see, (private key can only decrypt data encrypted by public key), PGP, GPG, (both keys generated at same time, lots of randomization, large prime numbers, lots and lots of math, everyone can have public key(only 1 with private key))
+
+
+Process -> Bob has message -> encrypts plaintext with Alice public key -> ciphertext -> to Alice -> uses her private key to decrypt ciphertext to original plaintext
+Key escrow - someone else holds your decryption keys (private keys are in the hands of 3rd party, can be within organization), can be business arrangement, can be controversial but some cases required
+
+
+
+
+
+
+Encrypting Data - protect data on storage devices (this is data at rest)
+Full disk and partition/ volume encryption - BitLocker, FileVault
+EFS - Encrypting File System (Windows) encrypt single file on a system
+
+Database encryption - Protecting stored data and its transmission, 
+Transparent encryption - Encrypts all database info with a symmetric key
+Record level encryption - Encrypt individual columns, separate symmetric keys for each column 
+Transport Encryption - protect data traversing the network, encrypting in the application (browsers can communicate using HTTPS)
+
+
+VPN - Virtual private network, encrypts all data transmitted over the network regardless of application, client based VPN using SSL/TLS, Site to site VPN using IPsec
+
+
+Encryption algorithms - many ways to encrypt data, proper formula must be used during encryption and decryption, both sides decide on the algorithm before encrypting the data, advantages & disadvantages 
+
+
+*** DES vs AES visual comparison of algorithms and steps ***
+
+
+Cryptographic keys - very little that isn't known about cryptographic processes, algorithms are usually known, only thing you don't know is the key, key determines the output (encrypted data, hash value, digital signature), keep private keys private!, larger keys more secure (prevent brute force attacks)
+Symmetric encryptions - 128 bit or larger symmetric keys are common(they get larger)
+Asymmetric encryptions - complex calculations of prime numbers, larger keys than symmetric keys, common to see key lengths of 3072 bits or larger 
+A weak key is a weak key - make a weak key stronger by performing multiple processes (multiple hashes - key stretching or key strengthening), brute force would require reversing each additional hash
+
+
+Key Exchange -  A logistical challenge (how do you share an encryption key across an insecure medium without physically transferring the key), out of band key exchange (don't send symmetric key over the net)
+In band exchange - on the network, protect the key with additional encryption, use asymmetric encryption to deliver a symmetric key
+
+
+Real time encryption/decryption - There's a need for fast security(without compromising security), Share a symmetric session key using asymmetric encryption(encrypt the symmetric key with the servers public key, server decrypts shared key with priv key and uses it to encrypt data, this is the session key
+Need to be changed often*
+
+
+Symmetric key from asymmetric keys - (use public and private key cryptography to create a symmetric key)
+Key exchange alg - symmetric key created by combination of personal priv key and partner public key + other personal priv key and partner public -> symmetric key
+
+
+Encryption Technologies - 
+Trusted Platform Module (TPM) - A specification for cryptographic functions for a computer cryptography hardware on a device, cryptographic processor (random number generator, key generators)
+* Persistent memory (unique keys burned during manufacturing
+* versatile memory, password protected
+Hardware Security Module (HSM) - Used in large environments (clusters, redundant power, securely store thousands of cryptographic keys)
+* High end cryptographic hardware (plug in card or separate hardware device)
+* key backup (secure storage in hardware)
+* cryptographic accelerators
+Key managements systems - services are everywhere (on premises, cloud based, many different keys for many different services)
+* Mange all keys from a centralized manger(often third party software)
+* All key management from one console (create keys, associate keys, rotate keys, log key use)
+Keeping data private - Our data is located in many different places (phone, laptop, etc)
+* Attackers are always finding new techniques
+* Our data is changing constantly(how to protect)
+
+Secure Enclave – a protected area for our secrets
+   * Often implemented as a hardware processor, isolated from the main processor, many different technologies and names
+   * Provides extensive security features, its own boot ROM, monitors system boot process, true RNG, real time memory encryption, root cryptographic keys, performs AES encryption in hardware 
+
+
+Obfuscation - process of making something unclear(much more difficult to understand)
+Not impossible to understand(if you know how to read it), hide information in plain sight, steganography - hide information inside of an image(can recover if we know how it is stored)
+ -        greek for concealed writing(security through obscurity)
+message really invisible, the covertext contains the hidden information
+Common steg techniques - network based (embed messages in tcp packets), use an image, invisible watermarks (yellow dots on printers), other types - audio steganography, video steganography
+Tokenization - replace sensitive data with a non sensitive placeholder, common with credit card processing, use a temporary token during payment, this isnt encryption or hashing, the original data and token aren’t mathematically related
+Data masking - data obfuscation (hide some of the original data), string of asterisks instead of original CC number on receipt, protects PII and other sensitive data, may only be hidden from view (the data may still be intact in storage)
+ 
+
+
+
+
+Hashing and Digital Signatures - 
+Hashes - represent data as a short string of text(message digest, a fingerprint), one way trip(impossible to recover the original message from the digest, used to store passwords, confidentiality), verify downloaded content is the same as original, can be a digital signatures(authentication, non-repudiation, integrity)
+
+
+SHA256 hash - 256 bits / 64 hexadecimal characters
+Collision - hash functions (take an input of size), hash should be unique (different inputs should never create the same hash), MD5 (collision found in 1996) has a collision problem
+
+
+Practical hashing - verify a downloaded file (hashes may be provided on download site, compare the downloaded file hash with the posted hash value), password storage (instead of storing password store the hash plus salted hash (extra info)
+Salt - random data added to password when hashing, every user gets their own random salt, rainbow tables wont work with salted hashes(additional random value added to the original password), slows things down when brute forcing
+
+
+Digital signatures - prove the message was not changed(integrity), prove the source of the message(authentication), make sure the signature is not fake (non-repudiation), sign with the private (message doesn't need to be encrypted), verify with the public key(any change in message will invalidate the signature)
+
+
+
+
+Blockchain Technology - 
+Blockchain - a  distributed ledger(keep track of transactions), everyone on the blockchain maintains the ledger, records and replicates to anyone and everyone, many practice applications (payment processing, digital identification, supply chain monitoring, digital voting
+
+
+A transactions information is sent to everyone participating in the blockchain -> transaction added to larger block of blockchain transaction -> add a hash to the block to provide integrity for all transactions applied to block -> copy of block is sent to everyone who has copy of this blockchains ledger
+
+
+Certificates -
+Digital certificate - a public key certificate(binds a public key with digital signature, and other details about key holder), digital signature adds trust (PKI uses Certificate Authorities for additional trust), web of trust adds other users for additional trust, certificate creation can be built into the OS
+
+
+X.509 - standard format, Certificate details (serial number, version, signature algorithm, issuer, name of cert holder, public key, extensions, etc)
+
+
+Root of trust - everything associated with IT security requires trust(foundation characteristic), how to build trust from something unknown? (someone trustworth provides approval), refer to the root of trust (inherently trusted component, hardware, software, firmware, etc, HSM (hardware security module, Security enclave, etc))
+Certificate Authorities - you connect to a random website (do you trust?), need a good way to trust an unknown entity, CA has digitally signed the website certificate (you trust the CA therefore you trust the website)
+Third party certificate authorities - built in to your browser, purchase your web site certificate, CA is responsible for vetting the request(the will confirm the certificate owner, additional verification info may be required by CA)
+Signing request - create a key pair, then send a public key to the CA to be signed (CSR), the CA validates the Certificate signing request (confirms DNS emails and website ownership), CA digitally signs the cert (private key)(returns to applicant)
+Private certificate authorities - you are your own CA, build it in house, needed for medium to large organizations, implement as part of overall computing strategy 
+Self signed certificates - Internal certificates dont need to be signed by a public CA, build your own CA, install the CA certificate/trusted chain on all devices
+Wildcard certificates - Subject alternative Name (SAN), lists additional identification information, allows a certificate to support many different domains, wildcard domain (certificates are based on the name of the server, a wildcard domain will apply to all server names in the domain
+Key revocation - Certificate revocation list (CRL), list of all certs revoked, maintained by CA, changes all the time. 
+
+
+OCSP Stapling - Online certificate Status protocol - provides scalability for OCSP checks, the CA is responsible for responding to all client OCSP requests, instead cert holder verify their own status, OCSP status is “stapled” into the TSL/SSL handshake
+Most browsers handle OCSP and can check certificate revocation when visiting third party website, messages usually sent to an OCSP responder vs HTTP, not all browsers/apps support OCSP (early internet browsers, some support OCSP but dont check) 
+
+
+Threat Actors - entity responsible for an event that has an impact on the safety of another entity(malicious actor), threat actor attributes(characteristics of attacker),  characterize motivation
+Attributes of threat actors - internal/external, resources/funding, level of sophistication/capability
+Motivations of threat actors - what makes them tick, data exfiltration, espionage, service disruption, blackmail, financial gain, political beliefs, philosophical etc.
+Unskilled attackers - runs pre-made script without any real knowledge of what is happening, motivated by the hunt/attack, can be internal/external (usually external), not very sophisticated, no formal funding
+Hacktivist - hacker with a purpose 
+Insider threat - more than just passwords on sticky notes, revenge/financial gain, extensive resource by using organizations resources, an internal entity, medium level of sophistication, specifically malicious indication
+Organized crime - professional criminals, motivated by money, very sophisticated, lots of capital to fund hacking efforts
+Shadow IT - Going rogue (working around the internal IT organization, builds their own infrastructure), IT can put up roadblocks (shadow IT is unencumbered, use the cloud, might innovate), limited resources (company budget), medium sophistication (may not have IT training or knowledge), using own tools to bypass company tools without acknowledging IT
+
+
+Common Threat Vectors - 
+threat vector - method used by attacker (attack vector), a lot of works goes into finding vulnerabilities, IT sec professionals spend their career watching these vectors
+
+
+Message based vectors - one of the biggest and most successful threat vectors, Email (malicious links in an email, linking to malicious site), SMS (Short Message Service) - attack in a text message, phishing attacks (people want to click links, link to an email, sends via text or IM), deliver the malware to the user by attaching to email (scan everything), social engineering attacks (invoice scams, crypto scams)
+Image based vectors -  Easy to identify a text based threat, some image formats can be a threat (SVG Scalable Vector Graphic, XML Extensible Markup Language), significant sec concerns (HTML injection, javascript attack code)
+File based vectors - more than just executables, Adobe PDF, ZIP/RAR or any compression type contains many different files, microsoft office documents with macros, add in files, extensions
+Voice call vectors -  Vishing - voice phishing over the phone, Spam over IP large scale phone calls, War dialing, Call tampering (disrupt voice alls)
+Removable device vectors - Get around the firewall (the usb interface), malicious software on USB flash drives (infect air gapped networks, industrial systems, high security services), USB devices can act as keyboards(hacker on a chip), data exfiltration (terabytes of data walk out the door, zero bandwidth used)
+Vulnerable software vectors - client based (infected executable, known vulnerabilities, may require constant updates), agentless - no installed executable, compromised software on server would affect all users, client runs new instance each time
+Unsupported systems vectors - poaching is an important prevention tool, unsupported systems aren't patched(may not be an option), outdated operating systems(manufacturer might not help), a single system could be an entry(keep inventory & records current)
+Unsecure network vectors - the network connects everything, wireless outdated (WEP, WPA, WPA2 -> upgrade WPA3), wired unsecure interface - No 802.1X, bluetooth (reconnaissance, implementation vulnerabilities
+Open Service Ports  - most network based services connect over a TCP or UDP port (open port), every open port is an opportunity for the attacker, every application has their own open port, firewall rules must allow traffic to an open port
+Default credentials -  Most devices have default usernames and pass(change them), the right credentials provide full control(admin access), very easy to find the default for your access points or routers
+Supply chain vector -tamper with the underlying infrastructure or manufacturing process, managed service providers (MSPs)(access many different customer networks from one location), Suppliers 
+
+
+Phishing -  social engineering with a touch of spoofing (often delivered by email/text/etc), don't be fooled CHECK THE URL, usually something not quite right (spelling, fonts, graphics)
+Business email compromise - we trust email sources(attackers take advantage of this trust), spoofed email addresses (not really a legitimate email address), financial fraud, the recipient clicks link and downloads malware
+Tricks and misdirection - digital sleight of hand, typosquatting (similar spelling grabbing URL), pretexting - lying to get information, attacker is a character in a situation the create, posing as IT
+Phishing with different bait - Vishing - voice phishing is done over phone or voicemail, Smishing - SMS Phishing done by text message, variations on a theme 
+
+
+Impersonation - 
+Pretext - before the attack, the trap is set
+Impersonation - attackers pretend to be someone they are not, use some of those details from reconn, attack the victim as someone higher in rank, throw tons of technical details around
+Eliciting information - extracting information from the victim(doesnt realize this is happening), often seen with vishing(voice fishing) over the phone
+Identity fraud - your identity can be used by others, credit card fraud, bank fraud, load fraud, gov benefits fraud
+Baiting - Free usb given at a conference containing malware
+Protection? - never volunteer information, always verify before revealing info
+
+
+Watering Hole Attacks -  What if your network was really secure?
+Attackers cant get in, Have the mountain come to you
+Execution of watering hole attack - determine which website the victim group uses, educated guess (local shop), infect one of these third party sites (site vulnerability, email attachments), infect all visitors
+Defense in depth - layered defense, its never one thing, IPS, firewalls, stop network traffic before things get bad, Anti virus / Anti malware signature updates
+Other Social Engineering Attacks -
+Misinformation/Disinformation -  Disseminate factually incorrect information, influence campaigns, nation state actors, advertising is an option, enabled through social media
+Process - create fake users -> create content -> post on social media -> amplify message ->real users share the message -> mass media picks up the story
+Brand impersonation - Pretend to be a well known brand (Coca-Cola, McDonalds, Apple), create tens of thousands of impersonated sites, visitors are presented with a popup, malware infection is almost guaranteed
+
+
+Memory Injections - Malware runs in memory(memory forensics can find malicious code), memory contains running processes(DLLs, Threads, buffers ,memory managements functions, etc)
+Add code into the memory of an existing process (hide malware in the process), get access to the data in the process and the same rights and permissions
+DLL Injection - Dynamic Link Library( A windows library containing code and data, many apps can use this library), attackers inject a path to a malicious DLL, one of the most popular memory injection methods
+
+
+Buffer Overflows - Overwriting a buffer of memory, developers need to perform bounds checking, not a simple exploit(takes time to avoid crashing things, takes time to do what you want), a really useful buffer overflow is repeatable
+
+
+Race Conditions - programming conundrum, things happening at the same time and can be ad if youve not planned it, TOCTOU - Time of check to time of use attack (check the system, when do you use the results of your last check)
+
+
+Malicious Updates - 
+Software updates - always keep your OS and applications updated, this process has its own security concerns(not every update equally secure), follow best practices(backup, sources?)
+Downloading and updating - install updates from a downloaded file(consider actions), confirm the source , visit the developers site directly, many os will only allow signed apps
+Automatic updates - the app updates itself, relatively trustworthy(directly from developer)
+Operating System Vulnerabilities - Operating systems - a foundation computing platform (everyone has an OS, very big target), remarkably complex(millions of lines of code, more code means more security issue opportunities), the vulnerabilities are already there
+A normal month of Window updates (patch tuesday, 2nd tuesday of each month), other companies have similar schedules
+Best practices - Always update, monthly or on demand, may require testing before deployment, may require a reboot(save all data), have a fallback plan (BACKUP)
+SQL Injection - 
+Code Injection - adding your own info to data stream, enabled because of bad programming(application should properly handle input and output), HTML, SQL, XML, LDAP, etc
+SQL - Structured Query Language, SQL (SQLi) put your own SQL requests into an existing application, your application shouldnt allow this, can often be executed in a web browser
+*webgoat demo*
+Cross-site Scripting - XSS (Cascading Style sheets is CSS), originally called cross site because of browser security flaws(info from one site can be shared with another), one of the most common web app vulnerabilities take advantage of the trust user has for a browser 
+XSS commonly uses JavaScript
+Non persistent (reflected) XSS attack - Web site allows scripts to run in user input(search box is a common course)(runs a script that sends credentials, etc to attacker), script embedded in URL executes in the victim's browser
+Persistent (Stored) XSS attack - Attacker posts a message to a social network(includes the malicious payload), its now persistent (everyone gets payload), no specific target(all viewers to the page), for social networking and can spread quickly
+Protection - Be careful when clicking untrusted links, consider disabling or limit capabilities of javascript, keep your browser and applications updated, validate input (dont allows users to add their own scripts to input fields)
+Hardware Vulnerabilities - We are surrounded by hardware devices(many do not have an accessible OS), these devices are potential security issues, everything is connected to the network, the security landscape has grown,
+Firmware - The software inside of the hardware(OS inside hardware), vendors are the only ones who can fix their hardware, hardware companies may not have same security priority(late patches),
+End of life - EOL (End-of-life), manufacture stops selling a product
+End of service life - EOSL (End of service life), stop selling product, support is no longer available fo the product, tech EOSL major significant concern
+Legacy platforms - Some devices remain installed for a long time, legacy devices(older OS, apps, middleware), ma be running EOL software(risk analysis for return), may require additional security protections
+Virtualization Vulnerabilities -
+Virtualization Security - Quite different than non virtual machines (can appear anywhere), quantity of resources may vary between VMs(CPU, memory, storage), many similarities to physical machines (complexity adds opportunity for attackers), vulnerabilities(local privilege escalations, command injection, information disclosure)
+
+
+VM escape protection - Virtual machine is self contained(theres no way out, or is there?), vm escape can break out of the VM and interact with the host os or hardware, once you escape the VM you have great control, this would be huge exploit
+
+
+Resource Reuse - the hypervisor manages the relationship between physical and virtual resources, these resources can be reused between VM’s, data can inadvertently be share between VMs
+Cloud - Specific Vulnerabilities -
+Security in the cloud - cloud adoption has been nearly universal(who isnt), we’ve put sensitive data in the cloud (attackers want), were not putting in the right protections, simple best practices arent being used (vulnerabilities rating high CVSS >= 7.0) 
+
+
+Attack the service - Denial of Service (DoS)(fundamental type), Authentication bypass(take advantage of weak or faulty authentication, directory traversal (faulty configurations put data at risk), remote code execution (take advantage of unpatched systems), web application attacks have increased(Log4j and Spring Cloud Function, easy to exploit and rewards are expensive), Cross Site Scripting(XSS), Out of bounds write (data corrupting, crashing, code execution), SQL injection 
+Supply Chain Vulnerabilities - 
+SC(Supply Chain) Risk - The chain contains many moving parts (raw materials, suppliers, manufactures, distributors, customers, consumers), attackers can infect any step along the way, one exploit can infect the entire chain
+
+
+Service Providers - you can control your own security posture(cant always control a service provider), service providers often have access to internal services, many different types of providers (network, utility, office cleaning, etc), consider ongoing security audits of all providers
+
+
+Hardware providers - can you trust your new router/server/switch/firewall/software, use a small supplier base(tighter control of vendors), strict controls over policies and procedures
+Cisco or not Cisco - All network traffic flows through routers and switches,
+Software providers - Trust is a foundation of security(every installation), initial installation(digital signature), updates and patches, open source is not immune 
+Misconfiguration Vulnerabilities - 
+Open permissions - very easy to leave a door open (hackers always find it), increasingly common with cloud storage
+Unsecured admin accounts - the linux root account, windows admin or superuser account, can be a misconfiguration(easy to hack password), disable direct login to root account, protect accounts with root or admin access
+Insecure Protocols - Non encrypted protocols (Telnet, FTP, SMTP, IMAP, HTTP), verify with a packet capture
+Encrypted versions - SSH, SFTP, IMAPS, HTTPS
+Default settings - every application and network device has a default login(not all of these are ever changed)
+Open ports and services - services will open ports (important to manage access(firewall)), allow or deny based on port number or application, firewall rulesets can be complex(easy to make mistake), always test and quit
+Mobile Device Vulnerabilities - 
+Mobile device security - challenging to secure, relatively small, always in motion(almost), packed with sensitive data, constantly connected to internet
+Jailbreaking/rooting - Mobile devices are purpose built systems(dont have access to operating system), gaining access Android(rooting)/AppleIos (jailbreaking), install custom firmware replacing existing OS, uncontrolled access
+Sideloading - malicious apps can be a significant security concern(trojan horse creating data breach), manage installation sources, sideloading circumvents security(apps can be installed manually without using app store)
+
+
+Zero day Vulnerabilites - 
+Vulnerabilities - many applications have vulnerabilities, someone working hard to find the next big vulnerabilities, attackers keep new holes to themselves
+Zero-day attacks - attackers search for unknown vulnerabilities, the vendor has no idea the vulnerability exists, zero day attacks (an attack without a patch or method of mitigation, race to exploit the vulnerability or create a patch, difficult to defend against the unknown)
+An overview of malware - 
+malware - malicious software, father information, show you advertising, viruses and worms
+types and methods - viruses, worms, ransomware, trojan horse, rootkit, keylogger, spyware, bloatware, logic bomb
+how - these all work together (worm take advantage of vulnerability, installs malware for backdoor, attacker can install malware later), computer must run a program, keep OS updates as computer is vulnerable
+Data is valuable - personal data(pictures and videos, important documents), organization data, may be valuable(willing to pay or just has value)
+
+
+Ransomware - nasty malware, malware encrypts all data on computer and attackers want you to send money for decryption, OS remains available, they want you running but not working
+Protections against ransomware - Always have a backup, keep you OS up to date, keep applications up to date, keep AV software signatures up to date, keep EVERYTHING up to date and BACKUP
+
+
+Viruses and Worms - 
+Virus - malware that can reproduce itself(execute program), reproduces through file systems or network, may or may not cause problems, AV is very common
+Virus types - program viruses, boot sector viruses, script viruses, macro viruses 
+Fileless virus - a stealth attack, operates in memory 
+Worms - Malware that self-replicates between systems, self-propagates and spreads quickly, use network as a transmission medium, firewalls and IDS/IPS can mitigate worm infestations \
+
+
+Spyware and Bloatware - 
+Spyware - malware that spies on you(advertising, identity theft), can trick you into installing, browser monitoring, keyloggers
+Protections? - maintaining you AV or anti malware, always know what you’re installing (watch options during installation), wheres the BACKUP ?, run some scans
+Bloatware - a new computer or phone(OS and important apps), also includes applications you didnt inspect or expect, apps are installed by the manufacturer, uses valuable storage space or add to overall resource usage
+Removing bloatware - identify and remove, use the built-in installer, some apps have their own uninstaller, third party uninstallers and cleaner 
+Other Malware Types -  
+Keyloggers - your keystrokes contain valuable information
+Logic bombs - waits for a predefined event, time bomb(date and time), user event
+Preventing logic bomb - difficult to recognize, process and procedures, electronic monitoring, constant auditing 
+Rootkits - originally a Unix technique, modifies core system files, can be invisible to the OS, look for the unusual, use a remover specific to the rootkit, secure boot with UEFI
+
+
+Physical Attacks - Old school security, many ways to circumvent digital security(always consider physical approach), if physical access then full control of server
+Brute force - physical version no password required, push through obstruction, check physical security, attackers will try everything
+RFID Cloning - RFID is everywhere(access badges, key fobs), duplicators are on Amazon, duplication process takes seconds, this is why we have MFA(use another factor with the card)
+Environment Attacks - Attack everything supporting the technology, power monitoring(obvious atack), HVAC and humidity controls(centers must be properly cooled), Fire suppression 
+
+
+Denial of Service - force a service to fail / overload the service, take advantage of a design failure or vulnerability (keep updated), cause a system to be unavailable, create a smokescreen for some other exploit, does not have to be complicated(removing power from system)
+
+
+Friendly DoS - Unintentional DoSing, network DoS (Layer 2 loops without STP), Bandwidth DoS(Downloading multi-gigabyte Linux distributions over a DSL line), the water line breaks
+
+
+DDoS - Launch an army of computers to bring down a service , this is why the attackers have botnets (thousands or millions of computers at your command), asymmetric threat(attacker may have fewer resources than the victim)
+
+
+DDoS Reflection and amplification - turn your small attack into a big attack (often reflected off another device or service), an increasingly common network DDoS technique, Uses protocol with little if any authentication  or checks (NTP, DNS, ICMP)
+
+
+DNS Attacks - 
+DNS Poisoning - modify the dns server, modify the client host file, send a fake response to a valid DNS request(on path attack, real time redirection)
+Domain Hijacking - get access to domain registration and have to control where the traffic flows, many ways to get into account (brute force, social engineering, gain access to email, etc)
+URL Hijacking - make money from your mistakes, sell the badly spelled domain to the actual owner, redirect to a competitor, phishing site, infect with drive by download
+URL Hijacking types - Typosquatting/brandjacking, outright misspelling(wrong letter), a typing error(forgot a letter), a different phrase(add a letter), different top level domain(.org instead of .com)
+Wireless Attacks - 
+802.11 management frames - 802.11 wireless includes a number of management features(Frames that make everything work, never see them), important for operation of 802.11 wireless, original wireless standards did not add protection for management frames
+Protecting against deauth attacks - IEEE already updates with 802.11ac, some of the important management frames are encrypted, not everything is encrypted
+Radio frequent (RF) jamming - DoS(prevent wireless comm), transmit interfering wireless signals (decrease signal to noise ratio at the receiving device, receiving device cant hear good signal), sometimes its not intentional, jamming is intentional
+Wireless Jamming - many different types (constant, random bits, constant legitimate frames, data sent at random times, reactive jamming(when someone tries to communicate)), needs to be somewhere close, time to go fox hunting (need equipment to hunt down the jam), directional antenna, attenuator
+
+
+On-path Attacks - attacker watch without you knowing (man in the middle), redirects your traffic, ARP poisoning(on path attack on the local IP subnet, ARP has no security)
+O-P Browser attack - What if the middleman was on the same computer as the victim (malware/trojan does all of the proxy work, formerly known as man in the browser), huge advantage for the attacker, the malware in your browser waits for you to login to your bank
+ 
+
+
+Replay Attacks - useful information is transmitted over the network, need access to the raw network data, gathered information may help the attacker, this is not an on path attack
+Pass the hash - (authentication pass hash), pc sends request to the server(attacker has method of redirection of traffic to his computer(user and hashed pass), now attacker can replay user and hashed pass posing as original client and now has access to server
+How to stop pass the hash - use a session ID with the password hash, use salting for password
+Cookies / Session IDs - information stored on your computer by the browser, use for tracking(personalization, session management), could be considered a privacy risk, session IDs are often stored in the cookie
+SideJacking - Session Hijacking (via session ID), need to encrypt end to end if not then end to somewhere
+Header manipulation - information gathering (wireshark, kismet), Exploits(XSS), modify headers (tamper, firesheep, scapy), Modify cookies
+
+
+
+
+Malicious Code - 
+Exploiting a vulnerability - an attacker can use many techniques (social engineering, default credentials, misconfiguration), these dont require technical skills, there are still ways to get into a well secured system
+Malicious Code - the attackers use any opportunity, many different forms (executable, scripts, macro viruses, worms, trojan, etc), proections come from many different sources, anti malware, firewall, continuous updates and patches, secure computing habits
+
+
+Application Attacks - 
+Injection attacks - code injection (adding your own information into a data stream, enabled because of bad programming(properly handle input and output), HTM, SQL, LDAP, XML, etc
+Buffer overflow - overwriting a buffer of memory, bounds checking needed, not simple, really useful means repeatable
+Replay attack - useful information is transmitted over the network, need access to the raw network data, gather info  to help attacker, not on path attack
+Privilege escalation - gain higher level access to a system, higher level access means more capabilities, there are high priority to vulnerability patches, horizontal privilege escalation
+Mitigating privilege escalation - patch quickly, update anti virus or anti malware software, data execution prevention, address space layout randomization
+Cross site requests - common and legitimate
+The client and server - website pages consist of client side code and server side code(many moving parts), client side(render page on the screen HTML or javascript), server side performs request from the client(HTML, PHP, transfer money to another account, post a video a youtube)
+Cross site request forgery - One click attack, session surfing(XSRF/CSRF), takes advantage of the trust that a web app has for the user, significant web app development oversight(cryptographic token for security)
+Directory traversal - read or write files to a web server that are normally outside the scope of the server directory
+Cryptographic Attacks - 
+Collisions - hash digests are supposed to be unique
+Downgrade attack - instead of using perfectly good encryption, use something not so grade(force systems to downgrade their security), SSL stripping (on path with downgrade, difficult but big returns, attacker in the middle, victims browser not encrypted, strings S from HTTPS)
+
+
+
+
+Password Attacks - some applications store passwords with no encryption (dont do this)
+Hashing a pass - hashes represent data as a fixed string of text (message digest or fingerprint), hopefully no collisions, one way trip
+Spraying attack - trying to login with an incorrect password, there are some common passwords, attack an account with the top three passwords
+Brute force - Try every possible password combination until hash is matched, might take some time
+B-F Online - very slow, keep trying login, most accounts will lockout (Offline obtain the list of users and hashees, calculate a password hash & compare it to stored hash, continue)
+
+
+Indicators of Compromise - (IOC) an event that indicates an intrusion, indicators (amount of network activity, change to file hash values, irregular international traffic, changes to DNS data, uncommon login patterns, spikes of read requests to certain files)
+Account lockout -  credentials are not working, exceeded login attempts, account administratively disabled, may be part of a larger plan
+Concurrent session usage - its challenging to be two places at one place, multiple account logins from multiple locations, this can be difficult to track down
+Blocked content - an attacker wants to stay as long as possible, probably a security patch available, Blocked content, 
+Impossible travel - authentication logs can be telling, three minutes later login from another country
+Resource Consumption - every attackers action has an equal and opposite reaction, file transfers use bandwidth, firewall logs show outgoing transfer, often first real notification of an issue
+Resource inaccessibility - the server is down, network disruption, server outage, encrypted data, brute force attack
+Out of cycle logging - out of cycle (occurs at an unexpected time), operating system patch logs(occurring outside of the normal patch day), firewall log activity
+Missing logs - log information is evidence, information is everywhere(always logged), logs may be incriminating
+Published/Documented - The entire attack and data exfiltration may go unnoticed, company data may be published online
+Segmentation and Access Control - 
+Segmenting network - physical, logical, or virtual segmentation (Devices, VLANs, virtual networks), performance, security, compliance
+Access control list (ACLs) - Allow or disallow traffic (grouping of categories(source IP, destination IP, port, time, appl, etc), restrict access to network devices(limit by IP or other identifier, prevent regular user/ non admin access), list the permissions, many OSs use ACLs to provide access to files
+App allow / deny list - security policy can control app execution, allow(nothing runs unless approved), deny(everything but the deny list can run)
+Mitigation Techniques - 
+Mitigation - reducing impact of security event
+Patching - incredibly important, monthly updates, third party patches, auto update(not always the best), Emergency out of band updates
+Encryption - prevent access to application file data, limit how much data attacker can access, file level encryption (EFS, encrypting file system windows), FDE (Full disk encryption(Bitlocker, Filevault)), application data encryption(managed by app)
+Monitoring - Aggregate information from devices (built in sensors, separate devices), sensors(IPS, firewall logs, authentication logs, etc), collectors (proprietary consoles, SIEM consoles)
+Least Privilege - rights and permissions should be set the the bare minimum, all user accounts must be limited, dont allow users to run with admin privileges
+Configuration enforcement - perform a posture assessment(each time device connects), Extensive check(OS patch version, EDR (endpoint detection and response) version, status of firewall and EDR, certificate status, systems out of compliance are quarantined
+Decommissioning - should be a formal policy(dont throw data into the trash someone will find), mostly associated with storage devices (SSD, hard drive, USB drive), many optios for physical devices, many options for physical devices
+
+
+Hardening Techniques - 
+System hardening - many are varied(windows, linux, IOS, android, etc), updates (OS updates), user accounts(password complexity, account limitations), limit network access, monitor and secure (AV anti malware)
+Encryption - prevent access to application data files (EFS), full disk encryption (FDE), encrypt all network comm via VPN, application encryption
+The endpoint - the users access, stop the attackers, many different platforms, protection is multifaceted
+Endpoint detection and response (EDR) - A different method of threat protection, detect a threat(signatures arent the only tool, behavioral analysis, machine learning, process monitoring, lightweight agent on the endpoint), investigate the threat(root cause analysis), respond to the threat(isolate system, quarantine threat, rollback to previous config, API driven, no user or tech need involvement)
+Host based firewall - software based firewall, allowing or disallowing incoming or outgoing application traffic (control by application process, view all data), identify and block unknown processes, managed centrally
+Finding Intrusions - Host based intrusion prevention system HIPS(recognize and block known attacks, secure OS and app configs, validate incoming service requests, built into endpoint protection software), HIPS identification (signatures, heuristics, behavioral), buffer overflows, registry updates, etc)
+Open ports and services - Every open port is a possible entry point(close all but required ports), control access with a firewall(NGFW ideal), unused or unknown services, applications with broad port ranges, use nmap or similar port scanner to verify
+Default password changes - every network has a management interface, many applications also have management or maintenance interfaces, change default settings, add addition security (MFA, etc)
+Removal of unnecessary software - all software contains bugs, every application seems to have a completely different patching process, remove all unused software 
+ 
+Cloud Infrastructure - 
+Cloud responsibility matrix - IaaS, PaaS, SaaS, etc ( Infra,Platform,Software as a service), security should be well documented(most cloud providers provide a matrix of responsibilities), these responsibilities can vary(different providers and agreements)
+Hybrid Considerations - Hybrid cloud(more than one cloud or private cloud, add additions complexity), network protection mismatches(authentication across platforms, firewall configurations, server settings), different security monitoring, data leakage
+Third party vendors in the cloud - You, the cloud provider, and third parties, ongoing vendor risk assessments(part of overall vendor risk management policy), include third party impact for incident response, constant monitoring
+Infrastructure as code - Describe an infrastructure(define servers, network, and applications as code), modify the infrastructure and create versions, use the description(code) to build other application instances, and important concept for cloud computing
+Serverless architecture - Function as a service (FaaS)(applications are separated into individual autonomous functions, remove the operating system from the equation), may be event triggered and ephemeral, managed by a third party 
+Microservice and APIs - Monolithic applications(one big application that does everything), application contains all decision making processes(UI, business logic, data I/O), code challengers(large codebase, change control challenges), APIs (application programming interfaces), API is the glue for the microservices, allows scalability, resilient, Security and compliance
+Network Infrastructure - 
+Physical Isolation - (devices are physically separate, air gap between 2 switches), must be connected to provide communication, web servers in one rack(database servers in another), customer A on one switch and another on B
+Physical segmentation - separate devices
+Logical segmentation with VLANs - Virtual Local Area Networks (VLANs), separated logically instead of physically, cannot communicate between VLANs without a Layer 3 device / router
+SDN (Software Defined Networking) - Networking devices have different functional planes of operation (data, control, management planes), split functions into separate logical units
+Infrastructure Layer(Data Plane) - Process the network frame and packer(forwarding, trunking, encrypting, NAT),
+Control Layer/ Plane - Manages the actions of the data plane(routing tables, session tables, NAT tables, dynamic routing protocol updates
+Application Layer (Management Plane) - Configure and manage the device (SSH, browser, API)
+Allowed to click buttons to create security i.e. firewalls in the cloud between networks thanks to our software defined networking
+Other Infrastructure Concepts -
+Attacks can happen anywhere - Two categories for IT security (on premises data, cloud based data), cloud based security is centralized and cost less (no dedicated hardware, no data center, third party handled), on premises put security burden on client, attackers want your data!
+On premises security - Customize your security posture, On site IT team can manage security better, local team maintains uptime and availability, local team can be expensive and security changes can take time
+Centralized vs Decentralized - most organizations are physically decentralized(many locations, cloud providers, etc), difficult to manage and protect so many diverse systems, a centralized approach(Correlated alerts, consolidated log file analysis, comprehensive system status and maintenance/patching, its not perfect (single point of failure, potential performance issues))
+Virtualization - run many different operating systems on the same hardware, each application instance has its own operating system (adds overhead and complexity, virtualization is relatively expensive)
+Application containerization - container(contains everything you need to run application, code and dependencies, a standardized unit of software), an isolated process in a sandbox, container image (standard for portability)
+Virtualized vs containerized - Both infrastructure, Virtual has hypervisor, Container has Host OS, Virtualized guest OS running separately on each individual machine, Container has containerization software on top (often docker) with different apps running on system
+IoT (internet of things) - sensors(heating and cooling/lighting), smart devices (home automation. video doorbells), wearable tech, facility automation, weak defaults (IOT manufactures are not security pros)
+SCADA /ICS - Supervisory Control and Data Acquisition System *Large scale, multi site Industrial Control Systems (ICS), PC manages equipment, distributed control systems, requires extensive segmentation
+RTOS (Real time Operating system) - an OS with a deterministic processing schedule(no time to wait for other processes, industrial equipment, automobiles, military environments), extremely sensitive security issues (need to always be available, non trivial systems, difficult to know what type of security is in place)
+Embedded Systems - hardware and software designed for a specific function (or to operate as part of a larger system), is built with only this task in mind, examples : Traffic light controllers, digital watches, medical imaging systems
+High availability - redundancy doesnt always mean always available, HA (high availability), may include many different component working together, higher availability almost always means higher cost
+Infrastructure Considerations -
+Availability - system uptime (access data, complete transactions), a balancing act with security, we spend a lot of time on availability, important metric
+Resilience - Eventually something happens, can you recover and how quickly or can you maintain availability, based on many different variables(cause, replacement hardware,installation, software patch availability, redundant systems), commonly referenced as MTTR
+Cost - how much money is required(everything comes down to cost), initial installation(different across platforms),  ongoing maintenance, replacement or repair costs, tax implications
+Responsiveness - request information, especially important for interactive applications(humans sensitive to delays), speed is an important metric
+Scalability - how quickly and easily can we increase or decrease capacity, theres always a resource challenge, needs to include security monitoring
+Ease of deployment - An application has many moving parts (web server, database, caching server, firewall, etc), this might be an involved process(hardware resources and cloud budgets),  this could be very simply(orchestration/automation), important to consider during the product engineering phase
+Risk transference - Many methods to minimize risk(transfer risk to 3rd party), cybersecurity insurance(attacks and downtime can be covered, popular with rise in ransomware), recover internal losses, protect against legal issues from customers
+Ease of recovery - Something eventually goes wrong(how easily can you recover since time is money?), reload OS from original media (1 hour) or reload from corporate image (10 mins), another important design criteria 
+Patch Availability - Software isnt usually static, this is often the first task after installation, most companies have regular updates, some companies rarely patch
+Inability to patch - what if patching wasnt an option, Embedded systems! (HVAC, time clocks), not designed for end user updates(short sighted for modern attacks), may need additional security controls (firewall)
+Power - a foundational element (this can require extensive engineering, overall power requirements(data center vs office building), primary power (one or more providers), backup services (UPS (Uninterruptible power supply), generators)
+Compute - An applications heavy lifting (more than single CPU), the compute engine (more options available in the cloud), may be limited to a single processor, use multiple CPUs across multiple clouds 
+Secure Infrastructures -
+Device Placement - Every network is different, firewalls (separate trusted from untrusted, provided additional security checks), other services may require their own security technologies (honeypots, etc)
+Security zones - zone based security technologies, each area of the network is associated with a zone (trusted, untrusted, internal, external, inside, internet, servers, databases, screened, etc), this simplifies security policies (trusted to untrusted, etc)
+Attack Surface - How many ways into your “home”?, everything can be a vulnerability, minimize the surface(audit code, blocks ports on firewall and monitor network traffic),
+Connectivity - everything contributes to security, secure network cabling(protect physical drops), application level encryption, Network-level encryption (IPsec tunnels, VPN concentrator) 
+Intrusion Prevention - 
+IPS (Intrustion Prevention System) - Watch network traffic, intrusions (explots against OS, applications, buffer overflows, XSS, etc), detection vs prevention (IDS Alarm or alert, prevention stops before enters network)
+Failure modes - we hope for 100% uptime (this isnt realistic sadly eventually something will break), fail open (when system fails the data continues to flow), fail closed (when a system fails the data will not flow, connection severed)
+Device connections - active monitoring (system is connected inline, data can be blocked in real time as it passes by, intrusion prevention is commonly active), Passive monitoring(a copy of the network traffic is examined using a tap or port monitor, data cannot be blocked in real time, intrusion detection is commonly passive)
+Active monitoring - IDS/IPS sits physically inline (example), malicious traffic is immediately identified
+Passive Monitoring - examine a copy of the traffic (Port mirror (SPAN), network tap), no way to block or prevent traffic (common with IDS)
+Network Appliances - 
+Jump server - access secure network zones(provides an access mechanism to a protected network), highly secured device(hardened and monitored), SSH/Tunnel/VPN, A significant security concern
+Proxies - sits between the users and the external network, receives the user request and sends the request on their behalf(the proxy), useful for caching information/access control/URL filtering/ content scanning, applications may need to know how to use the proxy, some proxies are invisible/transparent
+Application Proxies - one of the simplest proxies is NAT (network level proxy), most proxies in use are application proxies, a proxy may only know one application (HTTPS), many proxies are multipurpose proxies (HTTP, HTTPS, FTP, etc)
+Forward Proxy - an internal proxy(commonly used to protect and control user access to internet)
+Reverse Proxy - inbound traffic from the internet to your internal service  
+Open Proxy - a third party, uncontrolled proxy (can be significant security concern), often used to circumvent existing security controls
+Balancing the Load - distribute the load (multiple serves, invisible to the users), large scale implementations(web server farms, database farms). fault tolerance(server outages have no effect, very fast convergence)
+Active/active load balancing - Configurable load(manage across servers), TCP offload (protocol overhead), SSL offload (encryption/decryption in load balancer), caching(fast response),maybe prioritization, content switching (application centric balancing), for active/passive some servers are active(others on standby, ready to work when active server fails) 
+Sensors and Collectors - Aggregate information from network devices (built in sensors, separate devices), sensors (IPS, firewall logs, authentication logs, web server access logs, etc), collectors (proprietary consoles)
+
+
+Port Security - many authentication methods through the years, use a username and password(other factors can be included), commonly used on wireless networks
+EAP (Extensible Authentication Protocol), Many different ways to authenticate based on RFC standard, EAP integrates with 802.1X (prevent access to the network)
+IEEE 802.1X - port based Network Access Control (NAC), you dont get access to network until you authenticate, EAP integrates with 802.1X (Extensible authentication protocol), used in conjunction with an authentication database (RADIUS, LDAP, TACACS+, kerberos, etc)
+IEEE 802.1X and EAP - Supplicant (client), Authenticator (devices that provides access), Authentication server (validates client credentials)
+Firewall Types - 
+The universal security control - standard issue, control the flow of network traffic, corporate control of outbound and inbound data(sensitive materials), control of inappropriate content (NSFW, parental control), protection against evil (AV or anti malware)
+Network based firewalls - Filter traffic by port number or application (OSI layer 4 - TCP vs OSI layer 7 - Application/ Tradition vs NGFW firewalls), encrypt traffic like VPN between sites, most firewalls can be layer  3 devices (routers on network), network address translation NAT, authenticate dynamic routing communication
+UTM / All in one security appliance - unified threat management (UTM) / web security gateway, url filter/ content inspection, malware inspection, spam filter, CSU/DSU, firewalls, IDS/IPS, bandwidth shaper, VPN endpoint
+Next generation firewall (NFGW) - OSI Application layer(all data in every packet), can be called Application layer gateway/stateful multilayer inspection/deep packet inspection, requires some advanced decodes (every packet analyzed)
+NGFWs - network based firewalls, Intrusion prevention systems (identify application, apply application specific vulnerability signatures to the traffic), content filtering (URL filters, control website traffic by category), deep packet inspection
+WAF (Web application firewall) - Not like a normal firewall(Applies rules to HTTP/HTTPS), allow or deny base on expected input, SQL injection, a major focus of PCI DSS (payment card industry) (Data security standard)
+
+
+Secure Communication -
+ VPNs - Virtual Private Network - encrypted private data traversing public network, concentrator (encryption decryption access device, often integrated into a firewall), many deployment options(specialized cryptographic hardware, software based options), used with client software sometimes built into OS
+Encrypted tunnel - keep data private across the public internet, encrypt your data (add new headers and trailers), 
+SSL/TLS VPN (secure Sockets layer VPN) - Uses common SSL/TLS protocol (tcp/443) (almost no firewall issues), No big VPN clients usually remote access communication, authenticate users (more requirements for digital certificates or shared passwords for ipsec, can be run from a browser, on demand access from a remote device, some software can be conjured as always on
+Site-to-site IPsec VPN - Always on, or almost always, firewalls often act as VPN concentrators
+SSL VPN - remote access VPN
+IPsec VPN - Site to site VPN
+SD-WAN  - Software defined networking in a wide area network ( a WAN built for the cloud), the data center used to be in one place, cloud based applications communicate directly with the cloud
+Secure Access Service Edge (SASE) - Update secure access for cloud services, Secure access service edge (SASE)(next gen VPN), Security technologies are in the cloud, SASE client on all device
+Selection of effective controls - many different security options, VPN (SSL/TSL VPN for user access, IPsec tunnels for site to site access, SD-WAN(mange network connectivity to cloud, not adequately address security concerns), SASE (a complete network and security solution)
+
+
+Data Types and Classifications -
+ Data types - Regulated (managed by third party, government laws and statutes), trade secret(an organizations secret formulas, often unique to an organization), intellectual property (may be publicly visible, copyrights and trademark law), legal information(court records, PII and other sensitive details, usually stored in many different systems), financial information (internal company financial details, customer financials, payment records, bank records), human-readable, non human readable(encoded data/barcodes, images)
+Classifying sensitive data - Not all data has the same level of categorization (license plate numbers vs health records), different levels require different security controls(additional permissions, a different process to view, etc)
+Data classifications - Proprietary(data that is the property of the organization, may also include trade secrets, often data unique to org), PII (personally identifiable information, name, DOB, mother maiden name, biometric info), PHI (protected health information, health status, health care records, payments, etc), Sensitive (IP, PII, PHI), confidential (very sensitive, approval needed), public (no restrictions), Private/Classified/Restricted (may required NDA or restricted, critical (Data should always be accessible)
+
+
+States of Data - 
+Data at rest - That data is on a storage device(hard drive, ssd, flash drive, etc), encrypt the data(whole disk encryption, database encryption, file or folder level encryption), apply permissions such as access control lists
+Data in transit - data transmitted over the network (data in motion), not much protection as it travels(many different switches, routers, devices), network based protection (firewall, IPS), provide transport encryption TLS (transport layer security), IPsec(site to site VPN, internet protocol security)
+Data in use - data is actively processing in memory(System RAM, CPU registers and cache), the data is almost always decrypted(otherwise cant do anything with it), attackers can pick the decrypted information out of ram
+Data sovereignty - data sovereignty(data that resides in a country and is subject to laws of that country, legal monitoring, courts orders, etc), laws may prohibit where data is stored (GDPR(general data protection regulation in EU)), where is your data stored? 
+Geolocation - location details(tracks within localized areas), many ways to determine location (802.11, mobile providers, GPS), can be used to manage data access(prevent access from other countries), limited administrative tasks unless secure area is used
+
+
+Protecting Data -
+Geographic Restrictions - network locations (ip subnet, difficult with wireless devices), geolocations (gps - mobile devices va , 802.11 wireless la , IP address nva) <- a = accurate, geofencing (automatically allow or restrict access when the user is in a particular location
+Protecting Data itself - primary job task, data is everywhere (storage drive, network, CPU), encryption or security policies, data permissions (not everyone has the same access)
+Encryption - encode information into unreadable data(plaintext -> ciphertext), this is a two way street meaning decryption(convert between and have proper key), confusion (encrypted data is dramatically different than plaintext)
+Hashing - represent data as a short string of text(digest, print), one way trip (impossible to recover the original message from the digest, used to store password/confidentiality), verify a downloaded document is the same as original(integrity), can be a digital signature(authentication, non repudiation, and integrity), will hopefully not have a collision
+SHA256 hash - 256 bits / 64 hexadecimal characters
+Obfuscation - Obfuscate is to make something normally understandable very difficult to read, take perfectly readable code and turn it into nonsense(dev keeps readable code and gives you the scratch, both sets of code perform exactly the same way), helps prevent the search for security vulnerabilities 
+Masking - a type of obfuscation, protect PII, may only be hidden from view(intact in storage), many different techniques
+Tokenization - Replace a sensitive data with a non sensitive placeholder, commonly used with credit card processing(temporary token during payment), this isn't encryption or hashing
+Segmentation - many organizations use a single data source, one breach puts all data at risk, separate the data, sensitive data should have stronger security
+Permission Restrictions - control access to an account, the authentication process, permissions after login 
+
+
+Resiliency -
+High availability - redundancy doesnt always mean available, HA (high availability), may include many different components working together, higher availability almost always means higher costs
+Server clustering - combine two or more servers to work as a larger server, easily increase capacity and availability, usually configured in the OS
+Load Balancing - Load is distributed across multiple server (servers are often unaware of each other), the load balancer adds or removes devices(add a server to increase capacity, remove any servers not responding)
+Site resiliency - recovery site is prepped, a disaster is called (business processes failover to the alternate processing site), problem is address, revert to primary location
+Hot site - an exact replica (duplicate everything), stocked with hardware, applications and software are constantly updated, flip a switch and everything moves
+Cold site - no hardware (empty building with electricity), no data (bring it with you), no people
+Warm site - somewhere between cold and hot (just enough to get going), big room with rack space
+Geographic dispersion - these sites should be physically different than organizations primary location (many disruptions can affect large area, hurricane, tornado, flood, etc), can be a logistic challenge
+Platform diversity - every operating system contains potential security issues, many security vulnerabilities are specific to a single OS, use many different platforms
+Multi cloud systems - there are many cloud providers, plan for cloud outages, data is both geographically dispersed and cloud service dispersed
+COOP (Continuity of operations planning) - Not everything goes according to plan, we rely on our computer systems, there needs to be an alternative (manual transactions, paper receipts, phone calls for transaction approvals), these must be documented and tested before a problem occurs
+
+
+Capacity Planning - match supply to the demand, too much demand causes application slowdowns and outages, too much supply means paying too much, requires a balanced approach
+People - some services require human intervention, too few employees make things time consuming, too many employees requires redeployment or downsizing
+Technology - pick a technology that can scale (grow or shrink depending on service needs), web services, database services, cloud services 
+Infrastructure - The underlying framework (application servers, network services, etc), physical devices, cloud based devices are easier to deploy and useful for unexpected capacity changes
+Recovery Testing - test yourselves before an actual event, use well defined rules of engagement, very specific scenario, evaluate response
+Tabletop exercises - Performing a full scale disaster drill can be costly, many of the logistics can be determined through analysis, get key players together for a tabletop exercises
+Fail over - a failure is often inevitable, we may be able to keep running, create a redundant infrastructure, if one stop working fail over to the operational unit
+Simulation - test with a simulated event(phishing attacks, etc), going phishing (create a phishing email attack), test the users
+Parallel processing - split a process through multiple CPUs, improved performance, improved recovery
+
+
+Backups - incredibly important (recover important and valuable data), many different implementations(total amount of data, type of backup, media, storage location?software, when doing backup?)
+Onsite vs Off site backups - onsite means data and backup are at the same location (no internet link required, immediately available, less expensive), off site backups (transfer data over internet or WAN link, data available after a disaster), organizations often use both
+Frequency - How often to backup, this may differ between systems, may have multiple backup sets (daily, weekly, or monthly), requires significant planning
+Encryption - A history of data is on backup media, this makes it very easy for an attacker, protect backup data using encryption, especially useful for cloud backups and storage
+Snapshots - became popular on virtual machines, take a snapshot(an instant backup of entire system), taking another snapshot only captures changes between snapshots
+Recovery Testing - its not enough to perform the backup (you have to be able to restore), disaster recovery testing, confirm the restoration, perform periodic audits 
+Replication - an ongoing, almost real time backup, data is available, data can be stored locally to all users, data is recoverable 
+Journaling - power goes out while writing data to storage(data is probably corrupted), recovery could be complicated (removing corrupted files and restoring backup), before writing to storage - make a journal entry (after the journal is written, write the data to storage), after the data is written to storage update the journal
+
+
+Power Resiliency - Power is the foundation of our technology, we don't usually make our own power, there are ways to mitigate power issues 
+UPS - Uninterruptible power supply (short term backup power, blackout/brownouts/surges), UPS types (Offline/standby, line-interactive, On-line/double conversion UPS), Features 
+Generator - long term power backup, power an entire building (some power outlets may be marked as generator powered), it may take a few minutes to get the generator up to speed (use a battery UPS while the generator is starting)
+
+
+Secure Baselines - The security of an application environment should be well defined, integrity measurements check for the secure baselines 
+Establish baselines - Create a series of baselines, Security baselines are often available from the manufacturer, many operating systems have extensive options
+Deploy baselines - we now have established detailed security baselines, deploy the baselines, may require multiple deployment mechanisms, automation is the key
+Maintain baselines - many of these are best practices, other baselines may require ongoing updates, test and measure to avoid conflicts 
+
+
+
+
+Hardening Techniques - no system is secure with default configs, hardening guides are specific to the software or platform
+Mobile devices - always connected mobile tech, updates are critical, segmentation can protect data, MDM (mobile device manager for updates)
+Workstations - user desktops and laptops, constant monitoring and updates, automates the monthly patches, connect to a policy management system, remove unnecessary software
+Network infrastructure devices - switches, routers, etc. Purpose built devices with embedded OS or limited OS access, configure authentication (don't use the defaults), check with the manufacturer
+Cloud infrastructure - Secure the cloud management workstations, least privilege, endpoints detection and response (EDR), always have backups
+Server - many and varied, updates, user accounts, network access and security, monitor and secure
+SCADA / ICS - Supervisor Control and Data Acquisition system (Industrial Control Systems ICS), PC manages equipment, Distributed control systems, requires extensive segmentation
+Embedded systems - hardware and software designed for a specific function, can be difficult to upgrade, correct vulnerabilities, segment and firewall
+RTOS - Real time operating system (an OS with a deterministic processing schedule), isolate the system, run with the minimum services, use secure communication
+IoT devices - heating and cooling, lighting, home automation, etc -> weak defaults (IOT managers are not sec professionals), deploy updates quickly, segmentation
+Securing Wireless and Mobile -
+Site surveys - determine existing wireless landscape, identify existing access points, work around existing frequencies, plan for ongoing site surveys, heat maps
+Wireless survey tools - Signal coverage, potential interference, built in tools, 3rd party tools
+MDM (Mobile device management) - Manage company owned and user owned mobile devices (BYOD Bring your own device), centralized management of the mobile devices, set policies on apps, data, camera, etc. Manage access control
+BYOD - Bring your own device or bring your own technology , employee owns the device, difficult to secure (both home and work device so how is it protected)
+COPE - Corporate owned, personally enabled (company buys the device, used as both a corporate and personal device), organization keeps full control of the device, information is protected using corporate policies, CYOD (Choose your own device)
+Cellular networks - mobile devices (cell phones, 4g or 5g), separate land into “cells” (antenna coverages a cell with certain frequencies), security concerts (traffic monitoring, location tracking, worldwide access to a mobile device)
+Wifi - local network access, same security concerns as other WiFi devices, data capture (encrypt your data), on path attack (modify and monitor your data), denial of service via frequency interference
+Bluetooth - High speed communication over short distances (PAN Personal Area Network), connects to our mobile devices, do not connect to unknown bluetooth devices
+ 
+Wireless Security Settings - 
+Securing a wireless network - An organization's wireless network can contain confidential information, authenticate the users before granting access, ensure that all communication is confidential, verify the integrity of all communication (receiving packets are as they were sent, MIC message integrity check)
+WPA2 PSK problem - WPA2 has a PSK brute force problem (listen to the four way handshake, capture the hash), with the hash attackers can brute force PSK or pre shared key, this has become easier as tech improves, once you have the psk, you can have everyone's wireless key
+WPA3 and GCMP - WiFi protected access 3 (WPA3), GCMP block cipher mode (Galois/Counter Mode Protocol, stronger than WPA2), GCMP security services(AES confidentiality, MIC with GMAC)
+SAE - WPA3 changes the PSK authentication process, includes mutual authentication, creates a shared session key without sending key across network, no more four way handshake no hashes and no brute force, simultaneous authentication of equals (SAE) a DHE derived key exchange with an authentication component, everyone uses a different session key even with the same PSK, an IEEE standard/the dragonfly handshake
+Wireless authentication methods - gain access to a wireless network, credentials (shared password/PSK), centralized authentication (802.1X), configuration (part of the wireless network connect, prompted during the connection process) 
+Wireless Security modes - configure the authentication on your wireless access point/router, open system (no auth password), WPA3 personal / WPA3 PSK(pre shared key), WPA3 Enterpreise / WPA3 802.1X (authenticates users individually with an authentication server (RADIUS, LDAP, TACACS+)
+AAA Framework - Identification(who you claim to be), Authentication (Prove who you are), Authorization(Based on authentication, what access do you have), Accounting(resources used login time, data sent, data received)
+RADIUS (Remote authentication dial in user service) - one of common AAA protocols, centralize authentication for users (routers switches, firewalls, server auth, remote VPN access, 802.1X access), RADIUS services available on almost any OS
+802.1X - Port based Network Access Control, you dont get access to the network until authen, used in conjunction with an access database (RADIUS, LDAP, TACACS+)
+EAP (Extensible Authentication Protocol) - EAP is an auth framework, Many different ways to auth based on RFC standards, EAP integrate with 802.1X by preventing access to network until auth succeeds 
+IEEE 802.1X and EAP - Supplicant(client), authenticator, authentication server
+Application Security - 
+Secure Coding Concepts - A balance between time and quality , testing( a lot), vulnerabilities eventually found
+Input Validation - What is the expected input, document all input methods,, check and correct all input(normalization), the fuzzers will find what you missed (fuzzers put random types of data into the input fields)
+Secure Cookies - Cookies are small bits of info stored on computer browser, used for tracking, personalization, session management, secure cookies have a secure attribute set, sensitive info should not be saved in a cookie
+Static Code analyzers - Static Application Security Testing (SAST), many security vulnerabilities found easily, not everything can be identified through analysis, still have to verify each finding 
+Code signing - an application is deployed, has the application been modified in any way and can you confirm it was written by specific developer, the application code can be digitally signed by the developer 
+Sandboxing - Applications cannot access unrelated resources, commonly used during development, used in many different deployments (VM, mobile devices, Browser iframes(inline frames), Windows User Account Control (UAC))
+Application Security Monitoring - Real time information, view blocked attacks, audit the logs, anomaly detection
+
+
+Asset Management -
+ Acquisition/Procure process - the purchasing process, start with a request from the user, negotiate with supplies, purchase invoice and payment
+Assignment /accounting - A central asset tracking system, ownership of asset, classification (type, hardware, software)
+Monitoring/ Asset Tracking - inventory every asset, associate a support ticket with a device make and model, Enumeration (list all parts of asset), add an asset tag(barcode, RFID, visible tracking number, org name)
+Media Sanitization - System disposal or decommissioning(completely remove data), different use cases, a one way trip, reuse the storage media
+Physical Destruction - Shredder / pulverizer, drill or hammer, electromagnetic degaussing (remove magnetic field), incineration 
+Certificate of Destruction - destruction is often done by a third party, Need confirmation that your data is destroyed, a paper trail of broken data
+Data Retention - Backup your data (how much and where), Regulatory compliance, operational needs, Differential by type and application
+
+
+Vulnerability Scanning - usually minimally invasive(checks for potential attack existing, not penetration test), port scan, identify systems, test from the outside and inside, gather as much information as possible
+Static code analyzers  - Status Application Security Testing (SAST), many security vulnerabilities found easily, not everything can be identified through analysis(authentication, insecure cryptography, etc), still have to verify each finding
+Dynamic analysis (fuzzing) - sending random input to an application, looking for something out of the ordinary, 
+Package monitoring - some applications are distributed in a package, confirm the package is legitimate, confirm a safe package before deployment
+Threat Intelligence - research the threat, data is everywhere, make decisions based on this intelligence, used by researchers, security ops teams, etc
+OSINT (Open Source Intelligence) - Open source, internet, gov data, commercial data
+Proprietary/Third party intelligence - Someone else has already compiled the threat information, threat intelligence services (threat analytics, correlation across different data sources), constant threat monitoring
+Information Sharing Organization - Public threat intelligence, private threat intelligence, CTA (Cyber threat alliance)
+Dark web intelligence - Dark web (overlay networks that user internet for transport, requires specific software and config to access), hacking groups and services, monitor forums for activity
+
+
+
+
+Penetration Testing - Pentest(simulate attack), similar to vulnerability scanning (except we actually try and exploit), often compliance mandate, 
+Rules of engagement - An important document (defines purpose and scope), type of testing and schedule, the rules
+Exploiting vulnerabilities - try to break into system (be careful causing DoS), you many need to try many different vulnerability
+The process - initial exploitation, Lateral movement, Persistence, The pivot
+Responsible disclosure program - it takes time to fix a vulnerability, bug bounty programs, a controlled information release
+Analyzing Vulnerabilities -
+Dealing with false information - false positive, this is different than a low severity vulnerability, false negative, update to the latest signatures
+Prioritizing Vulnerabilities - Not every vulnerability shares the same priority, this may be difficult to determine, refer to public disclosures and vulnerability databases
+CVSS - National Vulnerability Database (nvd.nist.gove), Common Vulnerability Scoring System 0-10 (CVSS)
+CVE - The vulnerabilities can be cross referenced online, National Vuln Database, Common Vuln and Exposures (CVS), Microsoft security Bulletins, Some Vulns cannot be definitely identified
+Vulnerability Classification - the scanner looks for everything, application scans, web applications scans
+Exposure factor - Loss of value or business activity if the vulnerability is exploited, a small DDoS may limit access to service, a buffer overflow may completely disable a service, a consideration when prioritizing
+Environmental variables - What type of environment is associated with this vulnerability, prioritization and patching frequency, every environment is different
+Industry or Org impact - some exploits have significant consequences depending on what the org does or provides
+Risk tolerance - the amount of risk acceptable to an organization, the timing of security patches, testing takes time, there's a middle ground
+Vulnerability Remediation - 
+Patching - the most common mitigation example, scheduled vulnerability/patch notices, unscheduled patches, this is an ongoing process
+Insurance - cybersecurity insurance coverage, does not cover everything, ransomware has increased popularity of insurance coverage
+Segmentation - Limit the scope of an exploit, a breach would have limited scope, cant patch then disconnect and use air gap, use interfal NGFWs
+Physical Segmentation - separate devices like two customers and different switches with no connectivity between, possible with VLANs (Virutal local area networks)
+Compensating Controls - optimal security methods may not be available, compensate in other ways(disable problematic service, revoke access to app, limit external access, modify intel sec control and software firewalls), provide coverage until a patch is deployed
+Exceptions and exemptions - removing the vulnerability is optimal, balancing act, not all vulnerabilities share the same severity, an exception may be an option
+Validation of remediation - the vulnerability is now patched, rescanning, audit, verification
+Reporting - Ongoing checks are required, difficult to manage without automation, continuous reporting 
+
+
+Security Monitoring - the attackers never sleep, monitor all entry points, react to security events (real time), status dashboards
+Monitoring Computing Resources - systems (Authentications, server monitoring), applications (availability, data transfers, security notifications), infrastructure (remote access systems, firewall and IPS ports)
+Log aggregation - SIEM or SEM (Security Information and Event Manager), consolidate many different logs to a central database, centralized reporting, correlation between diverse systems
+Scanning - A constantly changing threat landscape, actively check systems and devices, gather the raw details
+Reporting - analyze the collected data, status information, determine best next steps, ad hoc information summaries
+Archiving - it take an average of about 9 months for a company to identify and contain a breach (IBM sec report, 2022), access  to data is critical, may have a mandate
+Alerting - real time notification of security events, actionable data, notification methods (sms, text, email, sec console, etc)
+Alert response and Remediation - quarantine, alert tuning (prevent false positive and negatives)
+
+
+Security Tools -
+Security Content Automation Protocol (SCAP) - many different security tools on the market, managed by the National Institute of Standards And Technology (NIST), allows tools to identify and act on the same criteria
+Using SCAP - SCAP content can be shared between tools, especially useful in large environments, this specification standard enables automation, automation types
+Benchmarks - Apply security best practices to everything (OS, cloud providers, mobile devices, etc)
+Agents/agentless - Check to see if the device is in compliance(install a software agent on the device, or run on demand agentless check), agents can usually provide more detail, agentless runs without a formal install
+SIEM - Security Information and Event Manager - log collection of sec alerts, log aggregation and long term storage, data correlation, forensic analysis
+Anti Virus and Anti Malware - anti virus is the popular term (refers specifically to a type of malware), malware refers to the broad malicious software category(spyware, ransomware, fileless malware), the terms are effectively the same these days
+Data Loss Prevention (DLP) - wheres your data(SSN, credit card numbers, medical records), stop the data before the attacker gets it, so many sources so many destinations
+SNMP (Simple Network Management Protocol) - A database of data, management information base, database contains Object identifiers (OIDS), poll devices over udp/161, request statistics from a device, poll devices at f mixed intervals
+SNMP Traps - Most SNMP operations expect a poll, SNMP traps can be configured on the monitored device, communicates over udp/162, set a threshold for alerts
+NetFlow - gather traffic statistic from all traffic flows, NetFlow (standard collection methods, many product and options), probe and collector (probe watches network comm, summary records are sent to the collector)
+Vulnerability Scanners - usually minimally invasive, port scan, identify systems, test from the outside and inside, gather as much information as possible
+
+
+Firewalls - 
+Network based firewalls - Layer 1-7, filter traffic by port number or application (traditional vs NGFW), encrypt traffic (VPN between sites), Most firewalls can be later 3 devices (routers)
+NGFW - The OSI application layer (layer 7 firewall), can be called application layer gateway, stateful multilayer inspection device, deep packet inspection device, requires some advanced decodes
+Ports and protocols - make forwarding decisions based on protocol (TCP or UDP) and port number, based on destination protocol and port. web server tcp 80/443, SSH tcp/22, Microsoft RDP tcp/3389, DNS query udp/53, NTP udp/123
+RDP - remote access for remote access server (allow rule)
+Firewall rules - a logical path (usually top to bottom), can be very general or specific (more specific are usually at top), implicit deny(most firewalls include a deny at bottom), Access control list (ACL) -> Allow or disallow traffic, grouping of categories, ICMP commonly associated with a ping
+Screened Subnet - An additional layer of security between you and the internet
+IPS Rules - Intrusion Prevention System (Usually integrated into a NGFW), different ways to find malicious traffic, signature base, anomaly based, you determine what happens when unwanted traffic appears, thousands of rules, rules can be customized by group, this can take time to find the right balance (false positives /security )
+
+
+Web Filtering -
+Content filtering - control traffic based on data within the content, corporate control of outbound and inbound data, control of inappropriate content (NSFW, parental controls), protection against evil (AV or AM)
+URL Scanning - allow or restrict based on Uniform Resource Locator (Also called a Uniform Resource Identifier  (URI)), managed by category, can have limited control, often integrated into a NGFW
+Agent Based - Install client software on the users device, users can be located anywhere, updates must be distributed to all agents
+Proxies - sits between the users and the external network, receives the users request and sends the request on their behalf, useful for caching information, access control, URL filtering, content sharing, applications may need to know how to use the proxy, some proxies are invisible
+Forward Proxy - a centralized internal proxy, commonly used to protect and control user access to the internet
+Block rules - based on a specific URL, category of site content, different dispositions
+Reputation - Filter URLs based on perceived risk, automated reputation, manual reputation, add these dispositions to the URL filter
+DNS Filtering - Before connecting to a website, get the IP address, DNS is updated with real time threat intelligence, harmful sites are not resolved, this works for any DNS lookup
+Operating System Security - 
+Active Directory - A database of everything on the network (computers, user accounts, file shares, printers, groups, more, primarily windows based), manage authentication (user login using their AD, centralized access control, commonly used by the help desk(reset passwords, add and remove accounts)
+Group Policy - manage the computers or users with group policies(local and domain policies, group policy management editor), a central console(login scripts, network configs (QoS), security parameters), comprehensive control
+Security Enhanced Linux (SELinux) - Security Patches for the Linux Kernel (adds mandatory access control (MAC) to linux, Linux traditionally uses Discretionary Access Control (DAC), limits application access, open source 
+
+
+Secure Protocols -
+ Unencrypted network data - Network traffic is important data, some protocols arent encrypted(Telnet, FTP, SMTP, IMAP), verify with a packet capture
+Protocol Selection - use a secure application protocol(built in encryption), a secure protocol may not be available (deal breaker)
+Port Selection - Secure and insecure application connections may be available, HTTP and HTTPS (HTTP 80, HTTPS 443), the port number does not guarantee security (confirm the security features are enabled, packet captures may be necessary)
+Transport method - Dont rely on the application, 802.11 Wireless (open access point with no transport level encryption, WPA3 has all user data encrypted), Virtual Private Netowork (VPN) create an encrypted tunnel
+
+
+Email Security - 
+Email Security Challenges - The protocols used to transfer emails include relatively few security checks(easy to spoof), Spoofing happens all the time(check spam folder), the email looks as if it originated from <trusted email>, reputable sender will configure email validation 
+Mail Gateway - the gatekeeper (evaluates the source of inbound messages, blocks at gateway before reaches users, on site or cloud based)
+Sender Policy Framework (SPF) - SPF protocol (sender configures a list of all servers authorized to send emails for a domain), list of authorized mail server are added to a DNS TXT record
+Domain Keys Identified Mail (DKIM) - A mail server digitally signs all outgoing mail, the signature is validated by the receiving mail servers 
+DMARC - Domain based Message Authentication, Reporting, and Conformance (an extension of SPF and DKIM), the domain owner decides what receiving email servers should do with emails not validating using SPF and DKIM, compliance reports are sent to the email administrator
+
+
+Monitoring Data -
+FIM (File Integrity Monitoring) - Some files change all the time(some never), monitor important OS and application files, Windows - SFC (System File Checker), Linux - Tripwire, many host based IPS options 
+DLP (Data Loss Prevention) - wheres your data, stop the data before the attackers get it, so many sources/so many destinations
+DLP Systems - on your computer (data in use, endpoint DLP), On your network (data in motion), On your server (data at rest)
+USB Blocking - DLP on a workstation(allow or deny certain tasks), all devices had to be updated
+Cloud based DLP - Located between users and the internet, block custom defined data strings, manage access to URLs, block viruses and malware
+DLP and Email - Email continues to be the most critical risk vector (inbound threats, outbound data loss), check every email inbound and outbound, inbound, outbound
+
+
+Endpoint Security - 
+The endpoint - the users access, stop the attackers, many different platforms(mobile, desktop), protection is multifaceted 
+Edge vs access control - Control at the edge (your internet link, managed primary through firewalls, firewall rules rarely change), access control (control from wherever you are, access can be based on many rules (user, group, etc), access can be easily revoked or changed)
+Posture Assessment - You cant trust everyone computer (BYOD Bring your own device), malware infections // missing anti malware, unauth applications), before connecting to a network perform a health check
+Health Check / Posture Assessment - persistent agents (permanently installed onto a system, periodic updates), dissolvable agents (no installation required, runs during posture assessment), agentless NAC (integrated with Active Directory, checks are made during login and logoff, can't be scheduled)
+Failing your assessment - What happens when assessment fails?, quarantine network, notify admins, Try again once resolve
+Endpoint detection and response (EDR) - A different method of threat protection, Detect a threat (behavioral analysis, machine learning, process monitoring, lightweight agent on the endpoint), investigate the threat providing root cause analysis, respond to the threat 
+Extended Detection and Response (XDR) - An evolution of EDR(improved missed detections, false positive, and long investigation times) add network based detection, correlate endpoint, network and cloud data
+User Behavior Analytics - XDR commonly includes user behavior analytics, watch users, host ,network traffic, data repos, etc, watch for anything unusual (pattern matching, statistical analysis, etc), real time detection of unusual activity 
+
+
+Identity and Access Management - 
+Identity and Access Management (IAM) - Applications are available anywhere, data can be located anywhere, many different application users, give the rights to the right people at the right time
+IAM - Identify lifecycle management, access control, Authentication and authorization, identity governance
+Provisioning / de provisioning user accounts - The user account creation process, Provisioning and de provisioning occurs for certain events, Account details, An important part of the IAM process(an initial checkpoint to limit access, nobody gets admin access)
+Permission Assignments - Each entity gets limited permissions (just enough to do the job), storage and files can be private to that user, no privileged access to the OS
+Identity proofing - I could be anyone (IAM process should confirm who I am), resolution(who the sys thinks you are), validation, verification/attestation 
+Single sign on (SSO) - provide credentials one time (get access to all available or assigned resources, no additional authentication required), usually limited by time(24 hours for example), underlying authentication service must support SSO
+LDAP (Lightweight Directory Access Protocol) - Protocol for reading and writing directories over and IP network, X.00 specification was written by International Telecommunication Union (ITU), DAP ran on the OSI protocol stack, LDAP is the protocol used to query and update to an X.500 directory
+X.500 Distinguised Names - attribute=value pairs, most specific attribute listed first, hierarchical structure, container objects, leaf object
+Security Assertion Markup Language (SAML) - Open standard for authentication and authorization, not originally designed for mobile apps
+OAuth - Authorization Framework - determines what resources user will be able to access, Created by Twitter, Google, and many others(lots of support), Not an authentication protocol(OpenID connect handles the SSO authentication)
+Federation - Provide network access to others (not just employees, provides SSO), Third parties can establish a federated network, third parties must establish a trust relationship
+Interoperability - many different ways to communicate with an authentication server, often determined by what is at hand (VPN concentrator can talk to a LDAP server, we have an LDAP server),a new app uses OAuth, the interoperability is dependent on the environment
+
+
+Access Controls - authorization (the process of ensuring only authorized rights are exercised), users receive rights based on Access Control models
+Least Privilege - Rights and permissions should be set to the bare minimum (you only get exactly whats needed to complete objective) all user accounts must be limited, dont allows users to run with admin privilege
+MAC Mandatory Access Control - the OS limits the operation on a project, every object gets a label (Confidential, secret, etc), labeling of objects uses predefined rules
+DAC Discretionary Access Control - used in most OSs, you create the spreadsheet and as owner you control who has access, very flexible access control(weak security)
+RBAC Role Based Access Control - You have a role in your organization, administrators provide access based on the role of the USSR, in windows user groups to provide role based access control
+Rule based access Control - Generic term for following rules, access is determined through system enforced rules, the rule is associated with the object
+Attribute Based Access Control - users can have complex relationships to apps and data, ABAC can consider many parameters ( a next gen auth model), combine and evaluate multiple parameters
+Time of day restrictions - Almost all security devices include a time of day option, can be difficult to implement, time of day restrictions, emergency cases
+Multi Factor Authentications -  prove who you are (diff methods, memorized password, mobile app, gps location), factors (something you know, have, are, where you are), other factors
+Something you know - password, pin (personal identification number), pattern
+Something you have - Smart card (ID, integrate with devices), USB security key, hardware or software tokens, your  phone
+Something you are - Biometric authenticatiot(finger print, iris scan, voice), usually stores mathematical representation of biometric, difficult to change, used in very specific situations (often combined with other auth factors)
+Somewhere you are - Provide a factor based on your location, IP address, mobile device location services
+
+
+Password Security - 
+Password complexity and length - make your password strong, increase password entropy(unpredictable), stronger passwords are commonly at least 8 characters
+Password age and expiration - password age (how long since modified), password expiration(30 days, 60 days, 90 days, etc), critical systems might change more frequently
+Password managers - important to use different password for each account, store all of your passwords in a single database, built in to many OSs, enterprise password managers 
+Passwordless Authentication - many breaches are due to poor password control, authenticate without a password. you may already be passwordless, passwordless may not be the primary authentication method
+Just in time permissions - in many organizations, the IT team as assigned to administrator/root elevated account rights, grant admin access for a limited time, a breached user account never has elevated rights
++  - Request access from a central clearinghouse(grants or deny access based on predefined security policies), password vaulting, accounts are temporary
+
+
+Scripting and Automation -  automate and orchestrate, the need for speed, automate mundane tasks 
+Automation benefits - Save time, enforce baselines, standard infrastructure configurations, secure scaling (orchestrate cloud resources, quickly scale up and down, automation ensures proper security also scales. employee retention (automate the boring stuff), ease the workload
++ - Reaction time (computer is faster than you, address event immediately) workforce multiplier
+Cases for automation - User and resource provisioning (on boarding and offboarding, assign access to specific resources), guard rails (set of automated validations, constantly check to ensure proper implementation, reduce errors
++ - Security groups assigning or removing or monitoring, ticket creation, escalation(correct issues before involving human)
++ - Controlling services and access(automatically enable and disable services), continuous integration and testing, integrations and application programming Interfaces (APIs)
+Scripting Considerations - complexity, cost, single point of failure (script stops working ?), technical debt(patching problems may push the issue down the road, more expensive to fix later), ongoing supportability 
+
+
+Incident Response - 
+Security Incidents - User clicks an email an executes malware, DDoS, Confidential info stolen, user installs peer to peer software and allows external access to internal servers
+NIST-SP800-61 - National institute of Standards and Technology, NIST SPecial publication 800-61 Revision 2, Computer security incident handling guide
+Preparing for incident - Communication methods (phones/contact info for important parties), incident handling hardware and software, incident analysis resources, incident mitigation software, policies for incident handling
+The challenge of detection - many different detection sources, a large amount of “volume”, incidents are almost always complex
+Analysis - an incident might occur in the future, web server log, exploit announcement, direct threats, an attack is underway(buffer overflow attempt, AV software identifies malware, host based monitor detects a config change, network traffic flows deviate from the norm)
+Isolation and Containment - Generally a bad idea to let things run their course, sandboxes, Isolation can sometimes be problematic
+Recovery after an incident - Get things back to normal, eradicate the bug, recover the system
+Lesson Learned - learn and improve, post incident meeting, dont wait too long
+Answer the tough Questions - What happened, exactly?, how did incident plans work, what would you do differently next time, which indicators would you watch next time
+Training for an incident - Theres limited on the job training when a security event occurs, train the team prior to an incident, this can be an expensive endeavor
+
+
+Incident Planning -
+Exercising - test yourselves before an actual event, use well defined rules of engagement, very specific scenario, evaluate response
+Tabletop exercises - performing a full scale disaster drill can be costly, many of the logistics can be determined through analysis(tabletop), get key players together for a tabletop exercise
+Simulation - test with a simulated event, going phishing, test internal security, test the users (who clicked, additional training)
+Root cause analysis - Determine the ultimate cause of an incident, create a set of conclusions regarding the incident, dont get tunnel vision (there can be more than a single root cause), mistake happen
+Threat hunting - the constant game of cat and mouse, strategies are constantly changing, intelligence data is reactive (cant see attack until it happens), speed up the reaction time(use tech/automation to help/fight back)
+
+
+Digital Forensics - Collect and protect information relating to an intrusion, RFC 3227(Guidelines for evidence collection and archiving - good set of best practices), standard digital forensic process Acquisition Analysis Reporting, must be detail oriented 
+Legal hold - a legal technique to preserve relevant information, hold notification, separate repository for electronically stored information (ESI), ongoing preservation
+Chain of custody - Control evidence (maintain integrity), everyone who contacts the evidence (use hashes and digital signatures, avoid tampering), Label and catalog everything 
+Acquisition - Obtain the data (disk, ram, firmware), some of the data may not be on a single system, for virtual systems get a snapshot, look for any left behind digital items
+Reporting - document the findings(for internal use, legal proceedings), summary information, detailed explanation of data acquisition, the findings, conclusion 
+Preservation - handling evidence(isolate and protect the data), manage the collection process(work from copies, mange data collection from mobile devices), live collection has become an important skill, Follow best practices to ensure admissibility of data in court
+E-discovery - Electronic discovery (collect, prepare, review, interpret, and produce electronic documents), e discovery gathers data required by the legal process, works together with digital forensics
+Log Data - 
+Security Log Files - Detailed security related information (blocked and allowed traffic, exploit attempts, etc), Critical security information 
+Firewall logs - Traffic flows through the firewall, NGFW (logs the applications used, URL filtering categories, anomalies and suspicious data)
+Application Logs - Specific to the application, Windows(Event viewer/Application log), Linux/MacOS(-/var/log), parse details on the SIEM(filter out unneeded info)
+Endpoint Logs - attackers often gain access to endpoints, theres a lot of data on the endpoint(logon events, policy changes, sys events), everything rolls up to the SIEM (System Information and Event manager), Use with correlation of security events (combine IPS events with endpoint status)
+OS Specific Security Logs - OS security events(monitor apps, brute force or files changes, auth details), Find problems before they happen, may require filtering 
+IDS/IPS Logs - Intrusion prevention or detection systems(usually integrated into NGFW), Logs contains information about predefined vulnerabilities, common data points
+Network Logs - Switches, router, access points, VPN concentrators, Network changes
+Metadata - data that describes other data sources, Email(headers, servers, addresses), Mobile(type of phone, gps location), Web(OS, browser type, IP), Files (Name, address, phone num, title)
+Vulnerability Scans - Lack of security controls (no firewall, no AV, no anti spyware), misconfigurations(open shares/guest access), real vulnerabilities(especially newer ones)
+Automated Reports - Most SIEMs include a report generator, may be easy or complex to create, requires human intervention, these can be involved to create
+Dashboards - Real-time information status, add or remove information, show the most important data
+Packet Captures - solve complex application issues, gathers packets on the network, View detailed traffic information
+
+
+Security Policies - 
+Security Policy Guidelines - What rules are you following to provide CIA (Conf, Integ, Avail), high level strategies (Data storage req, security event procedures), detailed sec goal(appropriate wifi usage, remote access req), sec policies answer what and why
+Information Security Policies - The big list of all security related policies, compliance policies, detailed security procedures (what happens when?), a list of roles and responsibilities, this is just words and letters
+Acceptable Use Policies (AUP) - What is acceptable use of company assets, covers many topics(internet, telephones, computers, mobile devices), used by an organization to limit legal liability
+Business Continuity - not everything goes according to plan, we rely on our computer systems, there needs to be an alternative (manual transactions, paper receipts, phone calls for transaction approvals), documented and tested before problem occurs
+Disaster Recovery Plan - if a disaster happens, IT should be ready, disasters are many and varied, a comprehensive plan - recovery locations - data recovery method - application restoration - IT team and employee availability 
+Security Incidents - User clicks an email attachment and executes malware, DDoS, Confidential information is stolen
+Incident Response Roles - incident response team(specialized team who are trained and tested), IT security management, Compliance officers, technical staff(team in the trenches), user community
+NIST SP800-61 - National Institute of Standard and Technology(NIST Special Publication 800-61 Revision 2), The incident Response lifecycle - Preparation - Detection and Analysis - Containment/Eradication/Recovery - Post Incident Activity
+Software Development Lifecycle (SDLC) - Systems development life cycle, Many ways to get from idea to app, theres no best way
+Popular SDLCs - Waterfall (linear life cycle), Agile (faster with many cycles throughout the process)
+Change Management - how to make a change, one of the most common risks in the enterprise, often overlooked or ignored, have clear policies (frequency,duration, installation process, fallback procedures), sometimes extremely difficult to implement 
+
+
+Security Standards - A formal definition for using security technologies and processes, these may be written in house, many standards are already available (ISO / NIST)
+Password - what makes a good password(different org requirements, create complexity policy), define acceptable authentication methods (no local accounts only LDAP to the AD database), create policies for secure password resets, other password policies (change frequency)
+Access Control - How does an organization control access to data, define which access control types can be used, determine how a user gets access, document how access may be removed
+Physical Security - rules and policies regarding physical security controls, granting physical access, define specific physical security systems, addition security concerns (escorts, offboarding)
+Encryption - define specific standards for encrypting and securing data, password storage , data encryption minimum(Probably different encryp reqs for different states)
+
+
+Security Procedures - 
+Change managements - formal process for managing change, Nothing changes without the process, Determine scope of change -> Analyze risk of change -> Create a formal plan -> End user approval -> Present proposal to change control board -> Have a backout plan if failure -> Document Changes
+Onboarding - Bring a new person into org, IT agreements need to be signed, Create accounts, Provide required IT hardware
+Offboarding - All good things, This process should be pre planned, what happens to hardware and the data?, account information is usually deactivated
+Playbooks - Conditional steps to follow; a broad process, Step by step set of processes and procedures, often integrated with a SOAR platform (Security Orchestration, Automation and Response)
+Monitoring and revision - IT security is constantly changing, Update to security posture , change to an individual procedure, new security concerns 
+Governance structures - Boards, committees, government entities
+Security Considerations - 
+Regulatory - Regulations are often mandated, SOX (Sarbanes Oxley Act, Public company accounting reform and investor protection act of 2002), HIPAA (Health insurance portability and accountability act (extensive healthcare standard for storage, transmission of health information)
+Reg Examination - done by gov agency
+Legal - The security team is often tasked with legal responsibilities (report illegal acts, legal holds), security breach notifications, cloud computing can make this challenging(data moves between jurisdictions without human intervention)
+Industry - The industry may require specific security considerations, electrical power and public utilities, medical 
+Geographical Security - local/regional(city and state gov records for example), National (federal governments,multi state organizations, state secrets) Global(large multinational companies, global financial markets, laws will vary)
+Data Roles and Responsibilities - 
+Data Responsibilities - High level data relationships, Data owner(accountable for specific data, often senior officer)
+Data Roles - Data controller (manages HOW data will be used), Data Processor(actually processing data on behalf of controller) -> Payroll department vs actual Payroll Company
++ - Data Custodian (responsible for data accuracy, privacy, and security), works directly with the data(associates sensitivity labels to data), ensures compliance with laws or standard, manages access rights to data and implements security controls 
+
+
+Risk Management - 
+Risk Identification - The only certainty is uncertainty, an important part of any organization, Risk management (manage potential risk, helps plan for contingencies)
+Performing a Risk assessment - not all risk requires constant eval, One time(company acquisition, new equipment installation), continuous assessments (may be part of an existing process)
+Ad hoc - An organization may not have a formal risk assessment process (Ad hoc = for this), CEO is back from a conference (wants to know if the org is protected from a new attack type), a committee is created and the risk assessment proceeds 
+Recurring Assessments - evaluation occurs on standard intervals, an internal assessment(performed every three months at the beginning of the quarter), a mandated risk assessment(required by certain organization PCI DSS)
+Risk Analysis -
+Qualitative Risk assessment - Identify significant risk factors (ask opinions about the significance)
+Quantitative Risk assessment - ARO (Annualized Rate of Occurrence), Asset Value (AV), Exposure Factor (EF) Percentage of value lost due to risk, SLE Single Loss Expectancy has a formula of AV x EF, ALE Annualized Loss Expectancy has formula of ARO x SLE, the business impact can be more than money
+Impact - life (most important consideration), property(the risk to buildings and assets), Safety (some environments are too dangerous to work), finance (financial cost),
+Likelihood and Probability - Risk Likelihood(qualitative) , Risk probability(quantitative), Often considered similar in scope
+Risk appetite and tolerance - Risk appetite ( a broad description of risk taking deemed acceptable), Risk appetite posture (qualitative description for readiness to take risk), Risk tolerance (an acceptable variance(usually larger from the risk appetite)
+Risk register - Every project has a plan, but also has risk, key risk indicators, risk owner, risk threshold 
+Risk Management Strategies - Transfer(move the risk to another party), Accept (a business decision), Accept with exemption (a security policy or regulation cannot be followed), Accept with exception (update time frame for software update)
++ - Avoid, Mitigate (decrease risk level and invest in security systems)
+Risk Reporting - A formal document (identifies risks, details information for each risk), usually created for senior management, commonly includes critical and emerging risks
+
+
+Business Impact Analysis -
+Recovery - Recovery time objective (RTO), get up and running quickly, get back to a particular service level, Recovery Point objective(RPO) (How much data loss is acceptable, bring the system back online how far back does it go?)
+MTTR - Mean time to repair (average time required to fix an issue over time/resources)
+MTBF - Mean time between failures (average time system is online between failures over time)
+
+
+Third Party Risk Assessment -
+Third party risk - every organization works with vendors, important company data is often shared, perform a risk assessment, use contracts for clear understanding
+Penetration Testing - Pentest(simulating an attack and actually trying to exploit vulnerabilities), Often a compliance mandate, regular penetration testing by a third party
+Rules of engagement - Defines the purpose and scope, makes everyone aware of test parameters, type of testing and schedule, The rules (IP address ranges, emergency contacts, how to handle sensitive information)
+Right to audit clauses - Common to work with business partners (data sharing, outsourcing), third party providers (can hold all of the data, manage internet access, are they secure?), Right to audit should be in the contract
+Evidence of internal audits - Evaluate the effectiveness of security controls, may be required for compliance, check for security controls and processes, perform at a reasonable frequency
+Supply Chain Analysis - The system involved when creating a product, Get a product or service from supplier to customer -> Evaluate coordination between groups -> Identify areas of improvement -> Assess the IT systems supporting the operations -> Document the business process changes
+Independent Assessments - Bring in a smart person or team to evaluate security and provide recommendations, specialists in their field, they've seen it all
+Vendor selection process - Due diligence(check a company out before doing business), conflict of interest (personal interest could compromise judgement)
+Vendor Monitoring - Ongoing management of the vendor relationship, Reviews should occur on a regular basis, Different vendors may be checked for different indicators, Assign a person to be in charge of the vendor relationship
+Questionnaires - An important part of due diligence, Security related questions
+Agreement Types - 
+SLA - (Performance) (Service level agreement, minimum terms for service provided), Memorandum of understanding (MOU, both sides agree in general to the contents of the memorandum, states common goals, informal letter of intent), Memorandum of Agreement (step above MOU (MOA), both sides conditionally agree to the objectives, can be legal document without without legal language, not a contract that can contain legally enforced policies).
+Master Service Agreement - MSA, legal contract and agreement of terms, broad framework to cover later transaction
+Work Order / Statement of Work (SOW, WO) - Specific list of items to be completed, used in conjunction with MSA< details scope of job(location, deliverables, schedule, etc)
+Non Disclosure Agreement (NDA) - Confidentiality agreement between parties, Protects confidential information (Unilateral (One way), Bilateral(two party), Multilateral (multiple)), formal contract 
+Business Partners Agreement (BPA) - Going into business together, owner stake, decision making as in who makes the business decisions, Prepare for contingencies like financial issues or disaster recovery 
+Compliance - meeting the standard of laws, policies, and regulations, healthy catalog of rules, penalties
+Compliance Reporting - internal (monitor and report on organization compliance efforts, large orgs have CCO Central Compliance Officer), External (Documentation required by external or industry regulators)
+Reputational Damage - Getting hacked isnt a great look
+Other Consequences - Loss of license (Significant economic sanction,org cannot sell products), contractual impacts (some business deals may require a minimum compliance level)
+Compliance Monitoring - ensure compliance in day to day operations, Due diligence(care) is a duty to act honestly and in good faith (investigate and verify(, Attestation and Acknowledgement means someone must sign off on formal compliance documentation
+Internal and External - monitor compliance with internal tools, Provide access or information to third party participants, automation is a must have for large organizations, many third part monitoring systems 
+Privacy - 
+Privacy Legal Implications - A constantly evolving set of guidelines, local/regional, national, global
+GDPR General Data Protection Regulation - EU Data general regulation (name, address, photo, email, bank, social posts), controls export of private data, give data subjects control of personal data
+Data Subject - Any information relating to an identified or identifiable natural person, this includes everyone, laws and regulations 
+Data responsibilities - High level data relationships, Data Owner accountable for specific data often a senior officer
+Data roles - Data controllers manage how the data is use, the Data processor processes the data on behalf of the controller
+Data Inventory and Retention - What data does your organization store, Data inventory, Internal use (project collab, IT security, data quality checks), External use(select data to share publicly, follows existing laws and regulations)
+Audits and Assessments - Not just for taxes 🙂
+Cybersec audit - Examines It infrastructure, software, devices, policies & procedures, etc
+Attestation - Provides an opinion of truth or accuracy of a company's security positioning 
+Internal Audit - Audits aren't just for third parties, compliance, audit committee, self assessments
+External Audits - Regulatory requirements, Examinations (audits will often require hands on research), assessment
+
+
+Penetration Tests - 
+Physical Penetration Testing - Operating system security can be circumvented by physical means(modify boot process, boot from other media, modify or replace OS files), physical security is key, Assess and test physical security
+Pentesting perspectives - Offensive, Defensive, Integrated
+Working Knowledge - How much do you know about the test, known environment, Partially known environment, unknown environment
+Reconnaissance - Need information before the attacks, gathering a digital footprint, understand the security posture, minimize the attack area, create a network map
+PAssive Reconnaissance - Learn as much as you can from open sources, Social media, corporate web site, Online forums/reddit, social engineering, dumpster diving, business organizations
+Active Reconnaissance - Trying the doors, visible on network traffic and logs, ping scans/port scans, DNS queries, OS Scans, OS fingerprinting Service Scans
+Security Awareness - 
+Phishing Campaigns - how many employees would click a link in a phishing email, many companies will perform their own phishing campaigns, An automated process(centralized reporting for incorrect clicks), recognize a phishing attempt (spelling or grammar, domain name, attachments, request for personal info), respond to reported suspicious messages
+Anomalous Behavior Recognition - Risky behavior (modifying host file, replacing a core OS file, uploading sensitive files), unexpected behavior (logon from another country, increase in data transfers), unintentional behavior (typing wrong domain name, misplacing USB drive, misconfiguring sec settings)
+Reporting and Monitoring - Track and analyze security awareness metrics, Initial, Recurring
+Development - Create a security awareness Team (determine roles for training,monitoring,policy creation, etc), establish a minimum awareness level (Information delivery, depth of training), integrate compliance mandates, define metrics (assess the performance of security awareness programs )
+Execution - Create the training materials, document success measurements, Identify the stakeholders, deploy the training materials, track user training efforts 
+
+
+User Training - 
+Security Awareness Training - Before providing access, train your users, specialized training, applies to third parties, detailed documentation and records
+User guidance and training - Policy/Handbooks, Situational awareness
++ - Insider Threats(difficult to guard against), password management, Removable media and cables, social engineering, Operational Security (view security from the attackers perspective), Hybrid/Remote work environments 
+
+
+
+
+
+
+
+Practice PBQ/Quiz Takeaways and Notes  -
+NMAP - Commands always start with nmap, tcp syn scan is -sS, protocols AND versions is -sV, -O is operating system, -p- means ALL ports, -A is aggressive scan, -sU UDP Scan, -p (port like 80) HTTP port scan, -6 ipv6 scanning, -T0-5 (slowest to fastest/low to high)
+
+
+Layer 7 Protocols -
+Port #’s - DNS - 53, 
+80 - HTTP,
+HTTPS & SSTP (Secure Socket Tunneling Protocol) - 443,
+ 88 - Kerberos,
+ 22 - SSH(SFTP)
+, FTP - 20/21,
+Telnet - 23
+ LDAPS - 636,
+ LDAP - 389,
+ POP/POP3S - 110/995, 
+SMTP/SMTPS 25/587, 
+
+
+IMAP/IMAPS - 143/993,
+
+
+SMB - 139 (insecure), 445
+DHCP 67/68, 
+TACACS+ 49 (CISCO devices AAA), 
+NTP/Network Time Protocol - 123 (timekeeping sync),
+SNMP - 161/162,
+IPSec - 500,
+FTPS - 989/990,
+
+
+RADIUS - 1812/1813 (Network services AAA)
+RDP - 3389
+Diameter - 3868
+SRTP - 5004
+
+
+Layer 4 Protocols - 
+Transmission Control Protocol (TCP) - N/A, User Datagram Protocol (UDP) - N/A
+PPTP Point to Point Tunneling Protocol - 1723
+
+
+Layer 2 Protocols -
+L2TP (Layer 2 Tunneling Protocol) - 1701
+PPTP - 1723
+
+
+
+
+
+
+Certificates -> ASCII not binary characters, includes HEADER and FOOTER (CER format is ASCII, DER is BINARY with java), .PEM(Privacy enhanced mail, has header and footer, if request it would say begin signing request, X.509 (Standard guideline for how certificates are made (i.e. .PEM)
+Valid Certificate File Extensions - .crt, .cer, .der, .pem, 
+Key Stretching - PBKDF2, bcrypt, scrypt, Argon2
+PBKDF2 - Password Based Key Derivation Function 2
+Argon2 - Memory hard functions
+Bcrypt - Minimal configuration complexity
+PBKDF2 - low resources yet efficient key stretching methods
+Scrypt - adds more computational power to hashing power, ideal for more processing power
+RSA - Asymmetric encryption used for key exchange
+ECC - Public key cryptography for digital signatures
+RAID - Redundant Array of Independent Disks 
+RAID - RAID 1 Is mirroring (same disks each side, fault tolerant), 
+RAID 5 Cascading parity bits from top right to left and striping(equivalent of 1 disk used for parity) , dual, 
+RAID 10 striping(combining) mirroring (2 disks are mirrored using RAID 1, then both sets are striped using RAID 0(can only use 50% of capacity for data, fault tolerance of RAID 1 and speed of RAID 0) , 
+RAID 0 provides striping and increase throughput (not fault tolerant, only striped, only advantage is speed)
+Redundancy - Load balancer, UPS (Uninterruptible Power Supply), RAID, Server Cluster
+PGP - encryption/decryption can be implemented without significant additional infrastructure
+Snapshot over Image - Snapshot storage efficient and captures state of system in a point of time recording only the changes made since last backup
+Read to use cloud used by org - SaaS (Software as a service), SaaS is a cloud computing service model where the provider hosts and delivers software applications over net
+HTTPS traffic noticed being changed to HTTP - SSL/TLS downgrade (not DNS hijacking as it impact connections but doesn't force downgrades)
+DNS Sinkhole - redirecting malicious traffic to a non existent or controlled domain, effectively cutting off communication between the compromised systems and the malicious infrastructure 
+(PoC) Proof Of Concept - environment that could be stood up for a short period of time, utilizes either dummy or real data, and is used to demonstrate and model system capabilities and functionality for a fixed agreed upon duration of time
+Application Whitelist - only allows approved software to run, if software program isnt responding when launched then software probably isnt on whitelist
+
+
+Service Accounts - specifically designed for running services and automated processes, can be configured with the necessary permissions and are not subject to password complexity requirements in the same way user acc’s are
+
+
+Multipathing - a way to add fault tolerance and load balancing to the connection/network using multiple physical paths (such as network connection or storage paths)
+
+ASLR (Address Space Layout Randomization) - Cybersecurity technique to mitigate buffer overflow attacks that require attacker to know location of executable in memory
+
+
+STIX (Secure Threat Information eXpression) - Standard for describing cyber security threats 
+RDP - remote access for remote access server (allow rule)
+Limit connections to prevent resource exhaustion
+
+
+
+
+
+
+Some Algorithms -
+DES - Symmetric, Block, encrypted in 64 bit blocks, 56 bit key
+3DES - symmetric key block cipher, encrypted 3 rounds (EEE2) (Encrypt = E) (2 Keys), (EDE3) (Encrypt Decrypt), (EEE3)
+AES - Symmetric, Blocks of 128 bits, key size 128 bits minimum, file encryption on local machine
+DH (Diffie Hellman Key Exchange) - Protocol for 2 parties to agree on secret key without sending key publicly, uses modular exponential, raising bases to exponent then modulating with another value, uses large prime numbers
+Symmetric vs Asymmetric - Asymmetric if “SA” Brothers, “E” brothers (ECC and El Gamal) or Diffie
+
+
+RSA - digital signatures, asymmetric encryption, usually only encrypt data whos size is less than or equal to RSA key size (248 bits), more than enough bits to encrypt AES key, uses prime numbers like DH
+ECC - mobile device encryptions, asymm, use curves instead of numbers, 
+HMAC - data in transit (hashed based message authentication code), (message = key instead of just hashing message)
+PGP - Email encryption, not significant additional infrastructure, 
+Password Spraying - cracking access points of passwords by using a single password and trying it against multiple access points (something commonly used, trying once per site gets around auto failed logon lockouts)
+Scrypt - password based key derivation function, requiring computationally intensive for brute force/done, algorithm designed to use a lot of memory than others, adds more computational power to hashing power, ideal for more processing power
+Bcrypt - slow, Minimal configuration complexity
+PBKDF2 - Password Based Key Derivation Function 2, low resources yet efficient key stretching methods
+Argon2 - Memory hard functions
+
+
+
+
+
+
+ TCP - The communication between two computers is good and reliable, guarantee that data is received correctly, connection oriented, three way handshake (SYN (sync) sent from computer, receiver sends SYN ACK (acknowledge), ACK received sent from initial sender, guarantee delivery of data, sends message in data pieces, 
+
+
+UDP - Connectionless oriented protocol, does not guarantee data delivery, “Fire and forget”, faster than TCP
+
+
+WAF - WEB APPLICATION FIREWALL WEB APPLICATION FIREWALL WEB APPLICATION FIREWALL
+HIPS - HOST BASED IPS HOST BASED IPS HOST BASED IPS HOST BASED IPS
+DHCP Snooping - enhanced sec of DHCP by preventing unauth DHCP for assigning 
+Metasploit - Exploitation framework
+OWASP - Sec company 
+RootKit vs RAT - Rootkit is kernel level modification(building blocks)/attempts to hide itself from av and am software, secure boot with UEFI /-/ RAT however is used to provide remote access control often for data exfiltration 
+
+
+Acronyms not immediately recognized -
+AH - Authentication Header - protocol used in ipsec to provide integrity, auth, protection (encapsulating)
+AIS - Automated Indicator Sharing
+automated exchange of cyber threat indicators between orgs and agencies
+APT - Advanced Persistent Threat
+sophisticated cyber attack unauth user gains access for extended period
+ARP - Address Resolution Protocol
+networking protocol that maps local IP to physical MAC address in local network lay 2 - 3
+ASLR - Address Space Layout Randomization
+security technique by OS to randomize memory addresses used by key sys components in apps, harder to predict mem address of functions or exploit vulnerabilities 
+ASP - Active Server Page
+server side scripting tech for building dynamic web apps/embed scripts within HTML pages, generation of dynamic content
+BCP  - Business Continuity Planning
+strategy outlining orgs approach to maintain essential functions and services during/after disruptive event, ensure critical processes can continue or resume promptly 
+BGP - Border Gateway Protocol
+standardized exterior gateway protocol used to exchange routing and reachability information between autonomous systems, path vectors enabling routers to make informed efficient decisions
+BPDU - Bridge Protocol Data Unit
+frame used in spanning tree protocol and variants. BPDU are exchanged between switches to prevent loops in networks 
+CAC - Common Access Card
+physical access card used by the DoD, authentication, multifactor
+CAR - Corrective ACtion Report
+document outlines actions taken to address issues/nonconformities 
+CASB - Cloud Access Security Broker
+sec solution that acts as intermediary between orgs on premises infrastructure and cloud service providers 
+CBC - Cipher Block Chaining
+block cipher mode used in symmetric key algorithms, chaining mech for security, XOR fixed plaintext with previous ciphertex
+CBT - Computer Based Training 
+form of education utilizing computer technology of primary means to deliver content, interactive
+CERT - Computer Emergency Response Team
+group of info sec experts responsible for responding to and mitigating cyber sec incidents
+CFB - Cipher Feedback
+mode of operation for block cipher for encryption of data smaller than block size of cipher, turns into stream cipher for encryption of individual bytes or bits, used in cryptography for confidentiality
+CHAP - Challenge Handshake Authentication Protocol
+protocol for authenticating a user or network host , to an entity, usually network server or RADIUS, employs challenge response mechanisms to verify identity of connecting party
+CIS - Center for Internet Security
+nonprofit org focusing on enhancing cyber sec posture of public and private sector entities (tools, frameworks, best practices)
+CMS - Content Management System
+software app or programs used to create, manage and publish digital content, meant to simplify content creation and management for individuals and orgs
+CP - Contingency Planning
+development of strategies or procedures to ensure critical function continue in the event of disruption
+CRC - Cyclical Redundancy Check
+error checking code, mathematical calculation of CRC value of data, value is appended to data and checked by receiver to verify integrity
+CSU - Channel Service Unit
+networking device that operates at physical layer, used in digital comms networks to provide functions related to interface between data terminal equipment and digital comms link
+CTM - Counter mode
+block cipher mode for turning block cipher into stream, counter used to generate stream of pseudorandom blocks and XORd with plaintext to produce ciphertext, random access
+DBA - Database Administrator
+professional responsible for design,implementation, maintenance, and management of org database
+DEP - Data Execution Prevention
+sec feature implemented in modern OS’s to prevent execution of code in regions of memory that should only contain data
+DER - Distinguished Encoding Rules
+rules for encoding data structures described by abstract syntax notation 1, crucial in encoding and decoding X.509 certificates 
+DKIM - Domain Keys Identified Mail
+email authentication method that allows receiving person to check if unmodified and sent my emailers domain(digital signatures)
+DNAT - Destination Network Address Translation
+networking technique modifying destination IP address in header of packet while in transit, used in NAt scenarios to redirect incoming packets for a specific IP and port to different dest IP and port
+DNSSEC - Domain Name Systems Security Extensions
+suite of extensions that adds additions security layer enabling DNS responses to be validated for authenticity, helps prevent cache poisoning or on path/ mITM
+DSL - Digital Subscriber Line
+broadband tech uses copper telephone lines, high speed internet access asymmetrical speeds with faster download than upload
+ECB - Electronic Code book
+mode of operation for block cipher, each block of plaintext is independently encrypted using the same key, simple block cipher
+ECDHE - Elliptic Curve Diffie Hellman Ephemeral
+key exchange algorithm based on ECC, variant of DH, ephemeral means new key for each session, eliptic curves for two party secure shared secret over insecure channel
+ERP - Enterprise Resource Planning
+integrated software solution to manage and streamline business processes, consolidate various department functions/processes into unified platform
+ESN - Electronic Security Number
+unique ID number assigned to electronic devices, commonly associated with mobile phones and other telecommunications equipment
+ESP - Encapsulated Security Payload
+protocol within IPSec suite provides confidentiality, integrity, optional Authentication for data transmission over network
+FACL - File System Access Control List
+UNIX like OS feature system that provides more fine grained access controls, allowed on files and directories saying which group or people have permissions for actions
+FPGA - Field Programmable Gate Array
+an integrated circuit that can be configured by a user or a designer after manufacturing, programmable and can be reconfigured to implement circuits or functions
+FRR - False Rejection Rate
+metric used in biometric systems to measure likelihood that a user will be incorrectly rejected or denied access, rate genuine attempts are classified as imposters
+GCM - Galois Counter Mode
+operation for block ciphers that provide authenticated encryption, combined counter mode for encryption offering confidentiality and integrity
+GPO - Group Policy Object
+collection of settings in microsoft Active Directory that defines rules and configs for user and computer accounts within a network
+HA - High Availability
+design and implementation of systems and services to ensure continuous operations and accessibility, reliable/resilient infrastructure
+GRE - Generic Routing Encapsulation
+Tunneling protocol by CISCO allows encapsulation of a wide variety of network layer protocols, often used to create VPN or encapsulate traffic
+HOTP - HMAC based One time password
+one time independent password algorithm that uses cryptographic hash function and shared secret key to generate one time passwords, part of OAuth standard
+IDEA - International Data Encryption Algorithm 
+symmetric key block cipher that operates on fixed sized blocks of data, confidentiality
+IDF - Intermediate Distribution Frame
+distribution frame that serves as intermediate frame between main distribution frame and telecommunications or network equipment, responsible for distribution network devices between area or floor
+IdP - Identity Provider
+system or service that manages and provides authentication and identity information to other entities known as relying parties, IdP verifies the identity of users and shares relevant identity information with services and applications
+IKE - Internet Key Exchange
+protocol used to set up a secure and authenticated communication channel between parties in PSec, common in VPN implementations to secure connections over untrusted networks
+IRC - Internet Relay Chat
+real time text based communication protocol for group discussions or one on one conversations over the internet, client server model with IRC server
+ITCP - IT Contingency Plan
+documented set of procedures and guidelines and org follows to ensure continuation of critical IT functions in event of disruptive incident, key comp of business continuity and disaster recovery strategy
+IV - Initialization Vector
+random or unique value used as an input to cryptographic algorithms especially in block cipher modes of operation, primary purpose is to ensure that same plaintext input does not produce same ciphertext
+KDC - Key Distribution Center
+central component in Kerberos responsible for securely distributing auth keys and managing process between client and network, issues cryptographic tickets for service without continuously entering credentials
+KEK - Key Encryption Key
+cryptographic key used specifically for encrypting other cryptographic keys, part key management for cryptographic key storage and transmission
+LEAP - Lightweight extensible authentication protocol
+wireless authentication protocol developed by CISCO, designed for secure method authenticating users to a wireless network, legacy protocol with vulnerabilities that has been replaced
+MaaS - Monitoring as a service
+cloud based service model that provides orgs with capability to monitor and manage IT infrastructure, apps, services, outsources monitoring functions to third party service provider who provides services over the internet 
+MAC - Mandatory Access Control 
+security policy centrally controlled by policy admin and guaranteed enforcement 
+MAC - Media Access Control
+sublayer of data link layer (2) responsible for controlling access to shared comm medium within network, manages way multiple devices on a network share the same communication channel
+MAC - Message Authentication Code
+auth tag, authenticating and integrity checking message
+MAM - Mobile Application Management
+set of tech and practices designed to manage and secure mobile applications in enterprise environments, controlling access to and protecting corporate data within mobile apps
+MBR - Master Boot Record
+critical data structure located at beginning of storage devices such as HDD, contains information about partition structure, including location and size of each partition
+MDF - Main Distribution Frame
+central point in a telecomm network where cables from diff areas or buildings are terminated and connected to network backbone, distribution points for connecting various network components facilitating org management of telecomm infrastructure
+MFD - Multi Function Device
+also known as all in one (AiO), hardware that combines several functionalities in a single unit (scanning, copying, faxing, email, doc management, etc)
+MFP - Multi Function Printer
+also known as All in one printer combines several functions into single unit, in addition to printing they include scanning, copying, faxing, etc
+MMS - Multi Media Message Service
+standard way to send multimedia content such as text, picture, audio, video between mobile devices. Extends capabilities of SMS
+MPLS - Multi Protocol Label Switching 
+protocol agnostic networking technology designed to efficiently direct data packets along network using labels, operates at data link and network layers
+MSA - Measurement Systems Analysis
+method used to evaluate the precision and accuracy of measurement system, assess reliability of measurements taken to ensure free from errors 
+MS-CHAP - Microsoft Challenge Handshake Authentication Protocol
+widely used authentication protocol developed by microsoft, commonly used in point to point protocol connections, commonly employed in VPN connections
+MSP - Managed Service Provider
+company or org that delivers a range of technology services to clients, typically on a proactive basis, usually under a subscription model
+MSSP - Managed Security Service Provider
+specialized company or organization that offers outsourced cybersec services to business and organizations
+MTU - Maximum Transmission Unit
+maximum size in bites data unit can be transmitted over a network, largest amount of data that can be sent without fragmentation
+NAS - Network Attached Storage
+dedicated file storage device or server that operates over network to provide shared storage resources over multiple users or client devices, centralized and efficient
+NFC - Near Field Communication
+short range wireless communication technology enabling data exchange at close proximity, 13.56 MHz, smartphones, tables, contactless smart cards
+NFV - Network Function Virtualization
+architectural framework leveraging virtualization technologies to virtualizes traditional network functions onto industry standard servers switches or storage, improves efficiency, flexibility, and scalability of network services by decoupling from proprietary hardware
+NIC - Network Interface Card
+hardware component that allows computers to connect to a network and communicate with other devices, commonly used to enable wired or wireless connectivity
+NIST - National Institute of Standards and Technology 
+U.S. federal agency that operates under the department of commerce, mission is to promote innovation and industrial competitiveness by advancing measurement science 
+NTFS - New Technology File system
+Microsoft windows proprietary file system, predecessor is FAT file system, supports larger files, improved security, advanced metadata
+NTLM - New Tech LAN Manager
+suite of microsoft sec protocols that provides CIA to users, primarily used in Windows environments, considered legacy modern windows use more secure authentication such as Kerberos
+OAUTH - Open Authorization
+framework that allows users to grant application access (authorization)
+OSI - Open Systems Interconnection 
+model is a conceptual framework that standardizes functions of telecomm or computing system into seven abstraction layers, each layer represents specific set of functions and services, model designed to facilitate comm and interoperability between systems and network devices
+OSPF - Open Shortest Path First
+dynamic routing protocol commonly used in large enterprise networks and the INternet, categorized as an Interior Gateway Protocol and designed to efficiently exchange between routers within same autonomous systems 
+OT - Operational Technology
+refers to use of tech in monitoring and control of physical processes, devices, and infrastructure in various industries, specifically towards managing and optimizing industrial processes vs Information Technology
+OTA - Over The Air
+refers to wireless transmission of data or updates between devices without need for physical connection
+OTG - On the Go
+technology that enables mobile devices and other peripherals to act as both host and clients in USB connections, when connected to USB to peripheral devices
+OVAL - Open Vulnerability Assessment Language 
+is an international, community driven effort to standardize the transfer of vulnerabilities and security assessments across security tools
+OWASP - Open Web App Security Project
+non profit org focused on improving security of software, best practices, tools, OWASP top ten most critical web app security risks
+P12 - PKCS #12
+a cryptographic standard that defines a file format commonly use to store and exchange PII including private keys with corresponding public key certs. PFX or PKCS 12 Files
+PaaS - Platform As a service
+A cloud computing service model that provides a platform allowing customers to develop runs and manage applications without dealing with underlying infrastructure complexities
+PAC - Proxy Auto Configuration
+a method for auto configuring web browsers or other user agents to use a specific proxy server to direct traffic through a set of proxy servers based on predefined rules
+PAM - Privileged Access Management 
+security approach and set of tech that focuses on managing and securing access rights of privileged users within an organization
+PAM - Pluggable Authentication Modules
+a framework used in Unix and Linux that provides a standard interface for authentication services, PAM enables flexibility without modifying app source code
+PAP - Password Authentication Protocol
+authentication protocol used within PPP for establishing a connection between a user and a network, username and pass are transmitted in plaintext form across network
+PAT - Port Address Translation 
+also known as NAPT Network Address PT, type of NAT that allows multiple private IP addresses to be mapped to a single public IP address by using different port numbers
+PBX - Private Branch Exchange
+telecomm system used within an organization to manage and route internal and external telephone calls, servers as a private telephone network 
+PCAP - Packet Capture
+is a data file format used to store network packet data captured from a network, also used as shorthand term to refer to capturing network packets
+PDU - Power Distribution Unit
+device used in data centers server rooms etc to distribute electric power to multiple equipment
+PEAP - Protected Extensible Authentication Protocol
+is a protocol in wireless and VPN environments for securing auth process, provides method for mutual authentication between client and server
+PED - Portable Electronic Device
+a compact and mobile electronic device designed for personal or professional use, portability
+PEM - Privacy Enhanced Mail
+security standard that extends email infrastructure to support encrypted and authenticated communications
+PFS - Perfect Forward Secrecy 
+property of cryptographic systems that ensures that the compromise of a long term secret key does not compromise confidentiality of past communication sessions
+PFX - Personal Information Exchange
+password protected file format used to store and transfer digital certificates
+PIV - Personal Identity Verification
+standardized identification and authentication framework established by U.S. government, identity verification and access control across agencies
+PKCS - Public Key Cryptography Standard
+are a set of standard that define cryptographic algorithms protocols and syntax for securing sensitive information using public key cryptography
+POTS - Plain Old Telephone Service
+the traditional analog telephone service that uses copper wires to transmit voice signals over public switched telephone network, reliability for providing basic voice comms 
+PPP - Point to Point Protocol
+data link layer protocol used for established direct connection between two network nodes
+PPTP - Point to Point Tunneling Protocol
+network protocol that enabled the secure transfer of data between remote client and a private network over the internet, creates VPN connection
+PSK - Pre Shared Key
+Shared secret known to both parties involved in secure communication, used in authentication and establishing secure connection, commonly associated with VPNs
+PTZ - Pan Tilt Zoom
+surveillance camera tech and related systems to enable remote control of the cameras movements, pan is horizontal, tilt is vertical, zoom is adjust focal length
+QA - Quality Assurance
+systematic process or set of activities aimed at ensuring products meet specified quality standards
+QoS - Quality of Service
+set of tech and mechanisms used to manage and control network resources ensuring that different types of traffic receive appropriate level of service and performance
+PUP - Potentially Unwanted Program
+software that not inherently malicious may be undesirable or potentially harmfully(not explicitly designed to cause harm), unwanted ads, changing browser settings
+RACE - Research and Dev in Advanced Tech in Europe
+RAD - Rapid Application Development
+software development methodology that prioritizes speed and flexibility, iterative development and use of rapid prototyping
+RADIUS - Remote Auth Dial In User Service
+providing centralized AAA management for users who connect and use a network service
+RAID - Redundant Array Inexpensive Disks
+combines multiple physical disk drives into a single logical unit for data storage, performance improvement, and or fault tolerance
+RAS - Remote Access Server
+network device or server enabling remote users to connect to a local network or orgs internal network security
+RCS - Rich Communication Services
+comm protocol designed to replace SMS with multimedia enabled messaging experience
+RFC - Request For Comments
+system for developing and publishing specification standards and related documentation primarily related to the internet and internet connected systems.
+RIPEMD - Race Integrity Primitives Message Digest
+family of cryptographic hash functions designed to produce a fixed size message digest from variable sized input data 
+RTBH - Remotely Triggered Black Hole
+a security mechanism used in network infrastructure to mitigate and respond to DDoS attacks, remotely triggering the diversion of traffic destined for target of attack to a black hole
+RTP - Real Time Transport Protocol
+network protocol used for transport audio and video or IP networks, real time communication and streaming of multimedia content, often used in conjunction with RTCP (real time control protocol)
+S/MIME - Secure/ Multipurpose Internet Mail Extensions
+standard that extends functionality of internet emails protocols to provide secure method of sending and receiving digitally signed and encrypted messages
+SAE - Simultaneous Authentication of Equals
+key exchange protocol designed to establish a shared secret between two parties such as in a wifi network
+SAML - Security Assertions Markup Language
+XML based open standard for enhancing authentication and authorization data between parties
+SAN - Storage Area Network
+looks like local storage device and operates block level access very efficient in reading and writing, lots of bandwidth 
+SAN - Subject Alternative Name
+extension to an X.509 certificate list additional identification information, allows a certificate to support many different domains 
+SCADA - Supervisory Control and Data Acquisition 
+ICS, system for monitoring and controlling industrial processes, infrastructure, and facilities
+SCAP - Security Content Automation Protocol
+________________
+suite of open standard developed by NIST to standardize the way sec software products communicate information about software vulnerabilities and configs
+SCEP - Simple Cert Enrollment Protocol
+protocol designed for securely and efficiently handling enrollment and certificate management process in a PKI
+SDK - Software Dev Kit
+collection of software tools, libraries, documentation, sample code provided by devs or companies to facilitate the create of software applications
+SDLM - Software Dev Lifecycle Management/Methodology
+structured framework or process used by software developers to plan design build test deploy and maintain software infrastructure 
+SDV - Software defined visibility 
+refers to concept of dynamically managing and controlling the flow of network traffic in a flexible and programmable manager
+SEH - Structured Exception Handler - Structured Exception Handler SEH
+programming construct used to handle exceptions or unexpected events that may occur during the execution of a program
+SHA - Secure Hashing Algorithm
+family of cryptographic hash functions designed to produce a fixed size output from any input data of arbitrary size, shar 1/256/384/512
+SIM - Subscriber Identity Module
+small removable card used in mobile phone and other cellular devices. stores IMSI and related authentication and encryption keys
+SIP - Session Initiation Protocol
+signaling protocol used for initiating maintaining modifying and terminating real time sessions that involve video voice messaging and other communication applications and services
+S/MIME - Secure/ Multipurpose Internet Mail Exchanger
+SOAP - Simple Object Access Protocol
+protocol for exchanging structured information in web services, set of rules  for structuring message typically in XML format
+SOAR - Security Orchestration Automation Response
+set of technologies and practices that enable organizations to streamline and automate their security operations
+SoC - System on Chip
+integrated circuit that incorporates multiple hardware components required for the operation of and electronic system into a single chip
+SOC - Security Operations Center
+centralized facility that houses an organization's cybersecurity team responsible for monitoring detecting responding to and mitigating cybersecurity threat and incidents 
+SPF - Sender Policy Framework
+email authentication protocol designed to prevent email spoofing and phishing by verifying sender of email is authorized to send messages on behalf of a specific domain
+SRTP - Secure Real Time Protocol
+security protocol designed to provide CIA for real time communicated such as voice and video or IP networks
+STIX - Structured Threat Information Exchange/Expression
+is a standardized language and framework used to describing and sharing information about cyber threats
+STP - Shielded Twisted Pair
+type of copper cabling commonly used in networking to reduce electromagnetic interference and crosstalk
+SWG - Secure Web Gateway
+is a security solution designed to protect users and organizations from web based threats by enforcing security policies for web traffic, gateway between users
+TACACS+ - Terminal Access Controller Access Control System +
+security protocol commonly used for providing centralized AAA in network environments, extension of TACACS
+TAXII - Trusted Automated Exchange of Indicator Information 
+open standard and protocol designed for the automated exchange of cyber threat intelligence 
+TGT - Ticket Granting Ticket
+key component in Kerberos authentication protocol, kerberos auth protocol for secure authentication in client-server authentication, special ticket issued by KDC
+TKIP - Temporal Key Integrity Protocol
+sec protocol used in wifi networks to provide encryption for wireless, improvement over WEP
+TSIG - Transaction Signature
+cryptographic mechanism used to verify authenticity and integrity of transaction in various systems
+TTP - Tactics, Techniques, and Procedures
+m
+ethodologies approaches and specific methods used by threat actors or security professionals in the context of cybersecurity
+UAT - User Acceptance Testing
+phase of software development life cycle during which end users evaluate and validate software applicate to ensure it meets requirements and expectations
+UEFI - Unified Extensible Firmware Interface
+modern firmware interface that serves as a replacement for the traditional BIOS, interact with platform firmware during boot process
+UEM - Unified Endpoint Management
+method for managing and securing all types of devices within org network from centralized platform
+URI - Uniform Resource Identifier
+string of characters to provide a unique identifier or address for a resource on the internet
+URL - Universal Resource Locator
+web address used to specific location of resource on the internet
+UTP - Unshielded Twisted Pair
+type of copper cabling that consists of twisted pairs of insulated copper wires, networking and comm purposes particularly ethernet networks
+VBA - Visual Basic for Applications
+Microsoft developed programming language, automation of repetitive tasks, app customizations, Microsoft Office macros
+VDE - Virtual Desktop Environment
+infrastructure where desktop operating systems and applications are hosted and managed centrally, allowing end users to allow desktop environments from various devices 
+VDI - Virtual Desktop Infrastructure 
+tech that allows desktop os’s and applications to run on VM’s hosted on centralized servers managed in data centers
+VLSM - Variable Length Subnet Masking
+technique in IP addressing and subnetting to allocate IP addresses efficiently , unlike FLSM 
+VoIP - Voice Over IP
+tech that enables the transmission of voice and multimedia content over the internet or other IP based networks, voice calls, video calls, multimedia conferencing 
+VTC - Video Teleconferencing Video Conferencing 
+tech that allows individuals or groups in different locations to conduct face to face meetings or conferences using video and audio communications, cameras, microphones, speakers, real time
+WAF - Web Application Firewall
+security solution designed to protect web application from various cyber threats, SQLi, XSS, other web app vulnerability exploits 
+WEP - Wired Equivalent Privacy
+security protocol designed to provide WLAN with level of security privacy comparable to what is usually expected of a wired LAN
+WORM - Write Once Read Many
+type of data storage device where data can be written to the storage only once, and read multiple time, data is immutable and cannot be changed/deleted when written
+WPA - WiFi Protected Access
+security protocol designed to secure wireless networks, improvement over WEP
+WPS - Wifi Protected Setup
+standard that simplifies process of securely connecting devices to a wireless network
+WTLS - Wireless TLS
+XaaS - Anything as a Service
+broad category of services delivered over internet
+XML - Extensible Markup Language
+versatile markup language that defines rules for encoding documents in a format that is both human and machine readable 
+ XSRF - Cross Site Request Forgery
+type of security vulnerability that exploits the trust in a web app has in a users brower
